@@ -1,0 +1,211 @@
+.single-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-auto-rows :minmax(100px, auto);
+    display: -ms-grid;
+    padding: 8px;
+    height: 100vh;
+    position: relative;
+    font-family: system-ui;
+    border: 10px solid #deb887;
+    box-shadow: -16px 16px 23px;
+    background: hsl(220, 35%, 5%);
+    background-image: none;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+  .single-container div{
+    display: flex;
+    flex-shrink: inherit;
+    border: 2px solid #fff;
+    border-radius: 12px;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-end;
+    padding: calc(8px * 1.5);
+    /* min-height: 160px; */
+    color: #deb887;
+    font-size: 1.1rem;
+    font-weight: 600;
+    position:relative;
+    cursor: pointer;
+    overflow: hidden;
+  }
+
+  .title-div{
+    grid-column: 1/4;
+    grid-row: 1/2;
+  }
+
+  .story-div{
+    grid-column: 3/6; 
+    grid-row: 2/6;
+  }
+
+  .to-do-div{
+    grid-column: 1/3;
+    grid-row: 3/6;
+  }
+
+  .weather-div{
+    grid-column: 4/6;
+    grid-row: 1/2;
+  }
+
+  .mood-div{
+    grid-column: 1/3;
+    grid-row: 2/3;
+  }
+
+  .single-container div:hover{
+    color: #fff;
+    backdrop-filter: blur(6px);
+    justify-content: center;
+    align-items: center;
+  }
+
+  .single-container .paper-div{
+    visibility: hidden;
+    width: 500px;
+    font-size:20px;
+    margin-left:12px;
+	margin-bottom:20px;
+	overflow:hidden;
+	background-color:#FFF;
+	color:#222;
+	font-family:Courier, monospace;
+	font-weight:normal;
+	resize:none;
+	line-height:40px;
+	padding-left:100px;
+	padding-right:100px;
+	padding-top:45px;
+	padding-bottom:34px;
+	background-image:url(https://static.tumblr.com/maopbtg/E9Bmgtoht/lines.png), url(https://static.tumblr.com/maopbtg/nBUmgtogx/paper.png);
+	background-repeat:repeat-y, repeat;
+	border-radius:12px;
+	box-shadow: 0px 2px 14px #000;
+	border-top:1px solid #FFF;
+	border-bottom:1px solid #FFF;
+  }
+
+  .single-container .paper-div:active{
+    width: 5000px;
+    height: 5000px;
+    background:rgba(0, 0, 0, 0.4);
+  }
+
+  .single-container .to-do-div .new-task{
+    display:none;
+    border: none;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 580px;
+    max-height: 100%;
+    background-color: #F5DEB3;
+    padding: 24px;
+    overflow: auto;
+    font-size : 0.8rem;
+    justify-self: center;
+    align-items: center;
+    box-shadow: 4 4 12px 0 rgba(0, 0, 0, 0.4);
+  }
+
+  .single-container .to-do-div .new-task div{
+    border: none;
+    border-radius: 4px;
+    margin-bottom: 12px;
+    width: 90%;
+    max-width: 450px;
+    height: 50px;
+    background-color: #deb887;
+    color:hsl(220, 35%, 5%);
+    padding: 4px;
+    overflow: auto;
+    font-size : 0.8rem;
+    padding: 1;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.4);
+  }
+
+
+  .single-container .to-do-div input{
+    width: 420px;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #fff;
+    background-color: transparent;
+    padding: 0 4px;
+    justify-content: center;
+    border-radius: 0;
+  }
+
+  .single-container .to-do-div .submit{
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    border: none;
+    background: #5C4033;
+    color: #fff;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-plus'%3E%3Cline x1='12' y1='5' x2='12' y2='19'/%3E%3Cline x1='5' y1='12' x2='19' y2='12'/%3E%3C/svg%3E");
+    background-size: 18px;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 12px 0 rgba(238, 156, 167, 0.4);
+  }
+
+  .single-container .to-do-div ul{
+    list-style: none;
+    padding: auto;
+  }
+
+  
+  span:hover{
+    z-index: 1;
+  }
+
+
+.deleteBtn {
+  margin-left: auto;
+  display: block;
+  width: 16px;
+  height: 20px;
+  background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23ff3d46' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-trash-2'%3E%3Cpolyline points='3 6 5 6 21 6'/%3E%3Cpath d='M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2'/%3E%3Cline x1='10' y1='11' x2='10' y2='17'/%3E%3Cline x1='14' y1='11' x2='14' y2='17'/%3E%3C/svg%3E");
+  background-size: 16px;
+  background-position: center;
+  cursor: pointer;
+}
+
+.paper-edit{
+    visibility: hidden;
+    cursor:pointer;
+	margin-top:20px;
+	float:right;
+	height:40px;
+	padding-left:24px;
+	padding-right:24px;
+	font-family:Arial, Helvetica, sans-serif;
+	font-weight:bold;
+	font-size:20px;
+	color:#FFF;
+	text-shadow: 0px -1px 0px #000000;
+	-webkit-border-radius:8px;
+	border-radius:8px;
+	border-top:1px solid #FFF;
+	-webkit-box-shadow: 0px 2px 14px #000;
+	box-shadow: 0px 2px 14px #000;
+	background-color: #62add6;
+	background-image:url(https://static.tumblr.com/maopbtg/ZHLmgtok7/button.png);
+	background-repeat:repeat-x;
+}
+
+.paper-edit:hover{
+    zoom:1;
+    opacity: 0.8;
+}

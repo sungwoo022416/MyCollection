@@ -1,0 +1,203 @@
+body {
+  display: grid;
+    margin: 0;
+    font-family: monospace;
+  }
+html {
+  scroll-behavior: smooth;
+}
+
+  .login-page{
+    position: fixed;
+    top: 0; left:0;
+    height: 100vh;
+    width: 100%;
+    background: rgba(0,0,0, 0.9);
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .login-page .content{
+    display: none;
+    padding: 2rem;
+    text-align: center;
+    background: #fff;
+    position: relative;
+    margin: 2rem;
+    width: 40rem;
+  }
+  .login-page .content.active{
+    display:inline-block;
+  }
+
+  .diary-collection body {
+    margin: 0;
+    font-family: monospace;
+  }
+
+  #diary-header {
+    display: flex;
+    background: #deb887;
+    opacity: .8;
+    height:  7rem;
+    padding: 1rem;
+  }
+  #diary-header img {
+    justify-content: center;
+    
+  }
+
+  #diary-header li{
+    list-style: none;
+    width:15%;
+    justify-content: space-around;
+    font-weight: bold;
+  }
+
+  #diary-header .diary-avatar {
+    justify-self: center;
+    height: 12rem;
+    width: auto;
+  }
+  
+  .diary-collection {
+    display: block;
+    margin: 5rem;
+    font-family: 'DM-sans', sans-serif;
+  }
+  
+  .diary-collection .card {
+    text-align: center;
+    border: grey solid 1px;
+    background-image: none;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.4);
+    padding: 1rem;
+    width: 18rem;
+    height: 18rem;
+    display: inline-grid;
+    margin: 1rem 2rem;
+    color: #fff;
+    outline: .1rem solid #ccc;
+  }
+
+  .diary-collection .card:hover {
+    transition: all .5s ease-in-out;
+    outline: .2rem solid #fff;
+    outline-offset: -1.6rem;
+    cursor: pointer;
+    opacity: 0.6;
+ 
+  }
+
+  .diary-collection .card:hover h2, p{
+      text-align: center;
+      top: 50%;
+      transform: translatey(80%);
+      margin: 0;
+      z-index: 3;
+    }
+
+  .diary-collection .card:hover p { 
+    transform: translatey(30px);
+    letter-spacing: 3px;
+    font-size: 0.9rem;
+  }
+
+  .diary-collection .card:hover h2{
+    font-size: 1.3rem;
+  }
+
+  
+  .password-pop-up{
+    position: fixed;
+    top: 0; left:0;
+    height: 100vh;
+    width: 100%;
+    background: rgba(245,222,179, 0.7);
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .password-pop-up .password{
+    display:none;
+    padding: 2rem;
+    text-align: center;
+    background: #fff;
+    position: relative;
+    margin: 2rem;
+    width: 40rem;
+  }
+
+  .password-pop-up .password.active{
+    display:inline-block;
+  }
+
+  button {
+    position: relative;
+    background-color: #deb887;
+    border: none;
+    border-radius: 5px;
+    height: 3rem;
+    width: max-content;
+    color: #D2691E;
+    font-size: 18px;
+    justify-self: center;
+  }
+  
+  button:hover {
+    background-color: whitesmoke;
+    border: #deb887 solid 1px;
+    color: #deb887;
+  }
+  
+  
+  .password-form {
+    width: 80%
+  }
+
+  .login-form {
+    width: 80%
+  }
+  
+  .submit {
+    position: relative;
+    background-color: #e04b52;
+    border-radius: 5px;
+    height: 2rem;
+    width: max-content;
+    color: whitesmoke;
+    font-size: 18px;
+    justify-self: center;
+    font-family: monospace;
+    margin: 3px;
+  }
+  
+  .submit:hover {
+    background-color: whitesmoke;
+    border: #e04b52 solid 1px;
+    color: #e04b52;
+  }
+  
+  
+  .input-text {
+    border-radius: 5px;
+    height: 2rem;
+    width: 60%;
+    font-size: 18px;
+    font-family: monospace;
+    margin: 3px;
+  }
+
+  .popup {
+    font-size: 30px;
+    color: green;
+    display: none;
+    width: 100%;
+    height: 100vh;
+    background: #4c5077;
+    border: solid red 3px
+  }

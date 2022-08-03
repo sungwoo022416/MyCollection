@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>SmartDiary</title>
+      <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300&family=Edu+VIC+WA+NT+Beginner&display=swap');
+        @import url('https://fonts.googleapis.com/css?family=DM+Sans:400,500,700&display=swap');
+        </style>
+    <link rel="stylesheet" href="diary-collection.css">
+    <link rel="stylesheet" href="single-page.css">
+    <script defer type="text/javascript" src="src/index.js"></script>
+  </head>
+  <body>
+    <div class = "clean">
+    <div class="login-page">
+      <div class="content">
+        <form class="login-form" style="">
+          <h3>Login</h3>
+          <input type="text" name="name" value="" placeholder="Enter username..." class="input-text">
+          <br>
+          <input type="text" name="password" value="" placeholder="Enter password..." class="input-text">
+          <br>
+          <input type="submit" name="submit" value="Log-in" class="submit">
+        </form>
+      </div>
+    </div>
+  </div>
+    <div id='diary-header'>
+        <li id="1">home</li>
+        <li id="2">new diary</li>
+        <li class="forecast_btn">forecast</li>
+      <img src="src/image/logo.png" alt="diary-header">
+    </div>
+    <!-- <div class="forecasting">
+      <form class="search" style="">
+        <h3>Enter Your Destination</h3>
+          <input type="text" name="city" value="" placeholder="Enter a city" class="input-text">
+      </form>
+      
+    </div> -->
+    <div class="diary-collection">
+          <div class="password-pop-up">
+            <div class="password active" >
+              <h3>Password Required</h3>
+              <img src="https://www.bosch-ebike.com/fileadmin/_processed_/4/4/csm_Bosch-eBike-Text-Bild-icon-Lock-closed_09ebb70625.jpg?_=1647612134">
+              
+              <form class="password-form" style="">
+              <input type="text" name="password" value="" placeholder="Enter a diary password..." class="input-text">
+              <br>
+              <input type="submit" name="submit" value="Enter" class="submit">
+              </form>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="single-container">
+        <div class="title-div">
+          <h2 class="title"></h2>
+          <em class="date-display"></em>
+        </div>
+        <div class="story-div">
+          <span class="paper-edit">Click the paper!</span>
+            <form class="paper-form">
+              <textarea type="text" name="story" value="" placeholder="" class="paper-div"></textarea>
+            </form>
+          <span class="story">Story</span>
+          </div>
+
+        <div class="weather-div">
+          <span class="weather">Weather</span>
+          <em class="temperature"></em>
+          <img class="icon">
+        </div>
+        <div class="mood-div">
+          <span class="mood">Mood</span>
+          <strong class="mood-state"></strong>
+          <em class="mood-content"></em>
+        </div>
+        <div class="to-do-div">
+          <span class="toDo">To-Do List</span>
+          <div class="new-task">
+            <form class="task-form">
+            <input type="text" name="newList" value="" placeholder="Add New Task" class="input-text">
+            <input type="submit" name="submit" value=" " class="submit">
+            </form>
+          </div>
+        </div>
+    </div>
+  </body>
+</html>
