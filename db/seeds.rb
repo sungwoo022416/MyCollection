@@ -36,7 +36,7 @@ User.create(
   )
 10.times do
     Story.create(
-        title: city[i],
+        city: city[i],
         month: "0#{rand(1..9)}",
         day: "#{rand(1..30)}",
         year: "#{rand(2000..2020)}",

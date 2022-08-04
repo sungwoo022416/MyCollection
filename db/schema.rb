@@ -36,7 +36,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_01_022854) do
   end
 
   create_table "stories", force: :cascade do |t|
-    t.string "title"
+    t.string "city"
     t.string "month"
     t.string "day"
     t.string "year"
