@@ -1,153 +1,67 @@
-body {
-  margin: 0;
-  font-family: monospace;
-  }
-html {
-  scroll-behavior: smooth;
+
+.diary-collection {
+  margin-left: 8rem;
+  margin-top: 3rem;
+  font-family: 'DM-sans', sans-serif;
 }
-  .diary-collection {
-    margin-left: 8rem;
-    margin-top: 3rem;
-    font-family: 'DM-sans', sans-serif;
-  }
-  
-  .diary-collection .card {
-    display: inline-grid;
-    justify-content: center;
+
+.diary-collection .card {
+  display: inline-grid;
+  justify-content: center;
+  text-align: center;
+  border: grey solid 1px;
+  background-image: none;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.4);
+  padding: 1rem;
+  width: 18rem;
+  height: 18rem;
+  color: #fff;
+  outline: .35rem solid #ccc;
+}
+
+
+.diary-collection .card:hover {
+  transition: all .5s ease-in-out;
+  transform: translateY(-30px);
+  outline: .2rem solid #fff;
+  outline-offset: -1.3rem;
+  cursor: pointer;
+  opacity: 0.6;
+
+}
+.diary-collection .card h2{
+  visibility: hidden;
+}
+
+.diary-collection .card p{
+  visibility: hidden;
+}
+
+.diary-collection .card:hover h2{
     text-align: center;
-    border: grey solid 1px;
-    background-image: none;
-    background-size: cover;
-    background-position: center;
-    box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.4);
-    padding: 1rem;
-    width: 18rem;
-    height: 18rem;
-    color: #fff;
-    outline: .35rem solid #ccc;
+    font-size: 1.3rem;
+    top: 50%;
+    transform: translateY(120px);
+    margin: 0;
+    z-index: 2;
+    visibility: visible;
   }
 
+.diary-collection .card:hover p { 
+  transform: translateY(50px);
+  letter-spacing: 3px;
+  font-size: 0.9rem;
+  visibility: inherit;
+}
 
-  .diary-collection .card:hover {
-    transition: all .5s ease-in-out;
-    transform: translateY(-30px);
-    outline: .2rem solid #fff;
-    outline-offset: -1.3rem;
-    cursor: pointer;
-    opacity: 0.6;
- 
-  }
-  .diary-collection .card h2{
-    visibility: hidden;
-  }
+.diary-collection .card:active{
+  transition: 0.7s ease;
+  transform: translateY(-500px);
+}
 
-  .diary-collection .card p{
-    visibility: hidden;
-  }
-
-  .diary-collection .card:hover h2{
-      text-align: center;
-      font-size: 1.3rem;
-      top: 50%;
-      transform: translateY(120px);
-      margin: 0;
-      z-index: 2;
-      visibility: visible;
-    }
-
-  .diary-collection .card:hover p { 
-    transform: translateY(50px);
-    letter-spacing: 3px;
-    font-size: 0.9rem;
-    visibility: inherit;
-  }
-
-  .diary-collection .card:active{
-    transition: 0.7s ease;
-    transform: translateY(-500px);
-  }
-
-  .password-pop-up{
-    position: fixed;
-    top: 0; left:0;
-    height: 100vh;
-    width: 100%;
-    background: rgba(245,222,179, 0.7);
-    display: none;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .password-pop-up .password{
-    display:none;
-    padding: 2rem;
-    text-align: center;
-    background: #fff;
-    position: relative;
-    margin: 2rem;
-    width: 40rem;
-  }
-
-  .password-pop-up .password.active{
-    display:inline-block;
-  }
-
-  button {
-    position: relative;
-    background-color: #deb887;
-    border: none;
-    border-radius: 5px;
-    height: 3rem;
-    width: max-content;
-    color: #D2691E;
-    font-size: 18px;
-    justify-self: center;
-  }
-  
-  button:hover {
-    background-color: whitesmoke;
-    border: #deb887 solid 1px;
-    color: #deb887;
-  }
-  
-  
-  .password-form {
-    width: 80%
-  }
-
-  .login-form {
-    width: 80%
-  }
-  
-  .submit {
-    position: relative;
-    background-color: #e04b52;
-    border-radius: 5px;
-    height: 2rem;
-    width: max-content;
-    color: whitesmoke;
-    font-size: 18px;
-    justify-self: center;
-    font-family: monospace;
-    margin: 3px;
-  }
-  
-  .submit:hover {
-    background-color: whitesmoke;
-    border: #e04b52 solid 1px;
-    color: #e04b52;
-  }
-  
-  
-  .input-text {
-    border-radius: 5px;
-    height: 2rem;
-    width: 60%;
-    font-size: 18px;
-    font-family: monospace;
-    margin: 3px;
-  }
-
+/* 
   .popup {
     font-size: 30px;
     color: green;
@@ -156,4 +70,4 @@ html {
     height: 100vh;
     background: #4c5077;
     border: solid red 3px
-  }
+  } */

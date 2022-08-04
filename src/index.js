@@ -14,6 +14,7 @@ const moodView = document.querySelector(".mood-view");
 const cityView = document.querySelector(".city-view");
 const dateView = document.querySelector(".date-view");
 
+const storyForm = document.querySelector(".story-form");
 const excitedParent = document.querySelector(".excited");
 const humbledParent = document.querySelector(".humbled");
 const fraustratedParent = document.querySelector(".fraustrated");
@@ -51,10 +52,10 @@ function helloPage(){
     .then(res => res.json())
     .then(storyArray => {
             activateNavBar(storyArray);
+
             storyArray.forEach(story => {
                 renderStory(story);
             })
-
      })
 }
 
@@ -81,7 +82,9 @@ function activateNavBar(storyArray){
         moodView.style.display = "none";
         cityView.style.display = "none";
         dateView.style.display = "none";
-        createStory();
+
+        respondToCreate(storyArray);
+
     })
 
     moodIcon.addEventListener("click", event => {
@@ -277,7 +280,6 @@ function displayDateFilter(storyArray){
 
     dateFlag = 1;
     
-
 }
 
 function fetchForecast(){
@@ -302,7 +304,75 @@ function fetchForecast(){
     })
 }
 
-function renderStory(storyObj) {
+function respondToCreate(storyArray){
+    const id = storyArray.length;
+   storyForm.addEventListener("submit", event => {
+        event.preventDefault();
+        createStory(event, id);
+
+   })
+
+   id++;
+}
+
+function createStory(event, id){
+    const city = event.target.city.value;
+    const month = event.target.month.value;
+    const day = event.target.day.value;
+    const year = event.target.year.value;
+    const image = event.target.image.value;
+    const content = event.target.content.value;
+    const min = event.target["min-temperature"].value;
+    const max = event.target["max-temperature"].value;
+    const feeling = event.target.feeling.value;
+    const one_liner = event.target["one-liner"].value;
+
+    const task1 = event.target[10].value;
+    const task2 = event.target[11].value;
+    const task3 = event.target[12].value;
+
+    debugger;
+    const createNewStory = {
+        city,
+        month,
+        day,
+        year,
+        image,
+        content,
+        user_id: 1
+    }
+
+    const createNewWeather = {
+        min,
+        max,
+        icon_day: "sunny",
+        icon_night: "foggy",
+        story_id: id
+    }
+
+    const createNewMood = {
+        feeling,
+        one_liner,
+        story_id: id
+    }
+
+
+    const createNewTask = {
+        task: task1,
+        story_id: id
+    }
+
+
+    configObj(createNewStory, createNewWeather, createNewMood, createNewTask);
+
+}
+
+function cofigObj(createNewStory, createNewWeather, createNewMood, createNewTask){
+
+}
+
+function renderStory(storyObj){
+    homePage.style.display = "block";
     indivPage.style.display = "none";
     newPage.style.display = "none";
     moodView.style.display = "none";
@@ -331,7 +401,6 @@ function returnStoryDiv(storyObj) {
 
     divNode.append(cityNode,moraleNode);
 
-
     divNode.addEventListener("click", event => { 
         event.preventDefault();
         homePage.style.display = "none";
@@ -347,13 +416,12 @@ function fetchingData(storyObj) {
     .then(res => res.json())
             .then(listArray => {
                 fetch(weatherUrl)
-                .then(res => res.json())
+                .then(res => res.json()) //async function
                 .then(weatherArray => {
                     fetch(moodUrl)
                     .then(res => res.json())
                     .then(moodArray => renderDiary(storyObj,
                         listArray, weatherArray,moodArray))})});
-
 }
 
 function renderDiary(storyObj,listArray,weatherArray,moodArray) {
@@ -427,7 +495,6 @@ function storyChange(storyObj, listArray, weatherArray, moodArray){
 
         const contentChange = contentNode.value;
        
-
         const updateStory = {
             content: contentChange
         }
@@ -447,9 +514,6 @@ function storyChange(storyObj, listArray, weatherArray, moodArray){
         })})
 }
 
-function createStory(){
- 
-}
 function addingNewTask(storyObj, inputTask, listing){
     const task = inputTask;
     const story_id = storyObj.id;

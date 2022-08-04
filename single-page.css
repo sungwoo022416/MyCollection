@@ -164,7 +164,7 @@
   border-radius: 8px;
   width: 100%;
   max-width: 580px;
-  max-height: 100%;
+  max-height: 800px;
   background-color: #F5DEB3;
   padding: 24px;
   overflow: auto;
@@ -178,8 +178,8 @@
   border: none;
   border-radius: 4px;
   margin-bottom: 12px;
-  width: 90%;
-  max-width: 450px;
+  width: 100%;
+  max-width: 500px;
   height: 50px;
   background-color: #deb887;
   color:hsl(220, 35%, 5%);
