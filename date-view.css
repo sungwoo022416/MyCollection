@@ -1,0 +1,60 @@
+.date-view {
+    margin-left: 8rem;
+    margin-top: 3rem;
+    font-family: 'DM-sans', sans-serif;
+  }
+  
+  .date-view .card {
+    display: inline-grid;
+    justify-content: center;
+    text-align: center;
+    border: grey solid 1px;
+    background-image: none;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.4);
+    padding: 1rem;
+    width: 18rem;
+    height: 18rem;
+    color: #fff;
+    outline: .35rem solid #ccc;
+  }
+
+  .date-view .card:hover {
+    transition: all .5s ease-in-out;
+    transform: translateY(-30px);
+    outline: .2rem solid #fff;
+    outline-offset: -1.3rem;
+    cursor: pointer;
+    opacity: 0.6;
+ 
+  }
+  .date-view .card h2{
+    visibility: hidden;
+  }
+
+  .date-view .card p{
+    visibility: hidden;
+  }
+
+  .date-view .card:hover h2{
+      text-align: center;
+      font-size: 1.3rem;
+      top: 50%;
+      transform: translateY(120px);
+      margin: 0;
+      z-index: 2;
+      visibility: visible;
+    }
+
+  .date-view .card:hover p { 
+    transform: translateY(50px);
+    letter-spacing: 3px;
+    font-size: 0.9rem;
+    visibility: inherit;
+  }
+
+  .date-view .card:active{
+    transition: 0.7s ease;
+    transform: translateY(-500px);
+  }

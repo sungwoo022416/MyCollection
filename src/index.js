@@ -10,6 +10,9 @@ const locationUrl = baseUrl + "/locations";
 const homePage = document.querySelector(".diary-collection");
 const indivPage = document.querySelector(".single-container");
 const newPage = document.querySelector(".create-story");
+const moodView = document.querySelector(".moodView");
+const cityView = document.querySelector(".city-view");
+const dateView = document.querySelector(".date-view");
 
 const forecastBtn = document.querySelector(".forecast_btn");
 const searchBar = document.querySelector(".search");
@@ -18,7 +21,6 @@ const password_pop_up = document.querySelector(".password-pop-up");
 const passwordForm = document.querySelector(".password-form");
 const loginForm = document.querySelector(".login-form");
 const loginClean = document.querySelector(".clean");
-
 
 const title = document.querySelector(".title");
 const weather = document.querySelector(".weather");
@@ -60,11 +62,14 @@ function helloPage(){
 function activateNavBar(){
     homeIcon.addEventListener("click", event => {
         event.preventDefault();
-    
-        newPage.style.display = "none";
-        indivPage.style.display = "none";
+
         homePage.style.display = "block";
-        
+        indivPage.style.display = "none";
+        newPage.style.display = "none";
+        moodView.style.display = "none";
+        cityView.style.display = "none";
+        dateView.style.display = "none";
+  
     })
 
     diaryIcon.addEventListener("click", event => {
@@ -72,21 +77,61 @@ function activateNavBar(){
 
         homePage.style.display = "none";
         indivPage.style.display = "none";
+        newPage.style.display = "block";
+        moodView.style.display = "none";
+        cityView.style.display = "none";
+        dateView.style.display = "none";
         createStory();
+    })
+
+    moodIcon.addEventListener("click", event => {
+        event.preventDefault();
+
+        homePage.style.display = "none";
+        indivPage.style.display = "none";
+        newPage.style.display = "none";
+        moodView.style.display = "block";
+        cityView.style.display = "none";
+        dateView.style.display = "none";
+
+        fetch(storiesUrl)
+        .then(res => res.json())
+        .then(storyArray => {
+        displayCityFilter(storyArray)});
     })
 
     cityIcon.addEventListener("click", event => {
         event.preventDefault();
       
-        newPage.style.display = "none";
+        homePage.style.display = "none";
         indivPage.style.display = "none";
-        homePage.innerHTML = "";
+        newPage.style.display = "none";
+        moodView.style.display = "none";
+        cityView.style.display = "block";
+        dateView.style.display = "none";
    
         fetch(storiesUrl)
         .then(res => res.json())
         .then(storyArray => {
         displayCityFilter(storyArray)});
     })
+
+    dateIcon.addEventListener("click", event => {
+        event.preventDefault();
+      
+        homePage.style.display = "none";
+        indivPage.style.display = "none";
+        newPage.style.display = "none";
+        moodView.style.display = "none";
+        cityView.style.display = "none";
+        dateView.style.display = "block";
+   
+        fetch(storiesUrl)
+        .then(res => res.json())
+        .then(storyArray => {
+        displayCityFilter(storyArray)});
+    })
+
 }
 
 function displayCityFilter(storyArray){
@@ -126,7 +171,7 @@ function displayCityFilter(storyArray){
             divParent.append(renderStoryBeforeHomePage(storyObj));
         })
 
-        homePage.append(divParent);
+        cityView.append(divParent);
     }
 }
 
