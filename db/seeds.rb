@@ -11,9 +11,19 @@ LOCATION_KEY = {
     "Amsterdam" => 249758, "Panama City" => 259549, "Lisbon" => 274087, "Stockholm" => 314929, "Denver" => 347810, "Honolulu" => 348211, "Vancouver" => 53286, "Anchorage" => 346835, "San Francisco" => 347629,
     "Miami" => 347936, "Seattle" => 351409
 }
-city = ["Beijing", "Berlin", "Beijing", "Madrid", "Beijing", "Hong Kong", "Hong Kong", "Berlin", "Los Angeles", "New York"]
+city = ["Beijing", "Berlin", "Beijing", "Madrid", "Beijing", "Hong Kong", "Hong Kong", "Berlin", "Los Angeles", "New York","Stockholm","Los Angeles","Los Angeles","Los Angeles","Los Angeles","San Francisco"," Anchorage","Istanbul","Beijing","San Francisco" ]
 
 images = [
+    "https://wallpaper.dog/large/5535465.jpg",
+    "https://images.unsplash.com/photo-1501183007986-d0d080b147f9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2787&q=80",
+    "https://images.unsplash.com/photo-1509514026798-53d40bf1aa09?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8ZnJlZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60",
+    "https://images.unsplash.com/photo-1536782376847-5c9d14d97cc0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8ZnJlZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60",
+    "https://images.unsplash.com/photo-1506038634487-60a69ae4b7b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8ZnJlZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60",
+    "https://images.unsplash.com/photo-1549989317-6f14743af1bf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fGZyZWV8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60",
+    "https://images.unsplash.com/photo-1512438248247-f0f2a5a8b7f0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fGZyZWV8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60",
+    "https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fGZyZWV8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60",
+    "https://media.istockphoto.com/photos/woman-work-in-vacation-remotely-picture-id1340056081?b=1&k=20&m=1340056081&s=170667a&w=0&h=iUqkSSPmwtt3jZfR50np0JhQjiF3KwAkGcEzPU_nk5E=",
+    "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8Zm9vZHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60",
     "https://wallpaper.dog/large/5535465.jpg",
     "https://images.unsplash.com/photo-1501183007986-d0d080b147f9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2787&q=80",
     "https://images.unsplash.com/photo-1509514026798-53d40bf1aa09?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8ZnJlZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60",
@@ -34,7 +44,7 @@ User.create(
     name: "#{Faker::Name.initials(number: 2)}#{rand(1..9)}#{rand(1..9)}#{rand(1..9)}#{rand(1..9)}",
     password: "1234",
   )
-10.times do
+20.times do
     Story.create(
         city: city[i],
         month: "0#{rand(1..9)}",
@@ -84,7 +94,7 @@ icon_night = [
 happy = ["sick","excited", "fraustrated", "humbled"];
 h = 1;
 
-10.times do 
+20.times do 
     Weather.create(
         min: rand(20..60),
         max: rand(60..110),
