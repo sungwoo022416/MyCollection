@@ -37,7 +37,9 @@ User.create(
 10.times do
     Story.create(
         title: city[i],
-        date: "0#{rand(1..9)}-#{rand(1..30)}-#{rand(2000..2020)}",
+        month: "0#{rand(1..9)}",
+        day: "#{rand(1..30)}",
+        year: "#{rand(2000..2020)}",
         image: "#{images[i]}",
         content: Faker::GreekPhilosophers.quote,
         user_id: 1
@@ -79,7 +81,7 @@ icon_night = [
     "mostly_cloudly", "partly_cloudy_w:showers", "mostly_cloudy_w:showers", "partly_cloudy_w:t-storms",
     "mostly_cloudy_w:t-storms", "mostly_cloudy_w:flurries", "mostly_cloudy_w:snow"]
 
-happy = ["happy","sad","excited","upset"];
+happy = ["sick","excited", "fraustrated", "humbled"];
 h = 1;
 
 10.times do 
