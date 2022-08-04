@@ -154,11 +154,11 @@
   border-bottom:1px solid #FFF;
 }
 
-.single-container .paper-div:active{
+/* .single-container .paper-div:active{
   width: 5000px;
   height: 5000px;
   background:rgba(0, 0, 0, 0.4);
-}
+} */
 
 .single-container .to-do-div .new-task{
   border: none;
