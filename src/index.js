@@ -38,43 +38,25 @@ const moodIcon = document.querySelector(".mood-item");
 const cityIcon = document.querySelector(".city-item");
 const dateIcon = document.querySelector(".date-item");
 
-let correctPassword = [];
-
-// fetch(userUrl)
-// .then(res => res.json())
-// .then(userArray => verifyUser(userArray));
-
-// function verifyUser(userArray) {
-//     loginForm.addEventListener("submit", event => {
-//         event.preventDefault();
-
-//         const name = event.target.name.value;
-//         const password = event.target.password.value;
-        
-//         userArray.forEach(user => {
-//             if(user.name == name && user.password == password){
-                fetch(storiesUrl)
-                .then(res => res.json())
-                .then(storyArray => {
-                        storyArray.forEach(story => {
-                            renderStory(story);
-                        })
-                        activateNavBar();
-                    })
-                
-
-//                 loginForm.style.display = "none";
-//                 loginClean.innerHTML = "";
-//             } 
-//         })
-//     })
-// }
+helloPage()
 // function renderStories(storyArray, user) {
 //     storyArray.forEach(storyObj => {
 //         if(user.id == storyObj.user_id)
 //         renderStory(storyObj)
 //     });
 // }
+
+function helloPage(){
+    fetch(storiesUrl)
+    .then(res => res.json())
+    .then(storyArray => {
+            storyArray.forEach(story => {
+                renderStory(story);
+            })
+            activateNavBar();
+        })
+}
+
 function activateNavBar(){
     homeIcon.addEventListener("click", event => {
         event.preventDefault();
@@ -95,7 +77,7 @@ function activateNavBar(){
 
     cityIcon.addEventListener("click", event => {
         event.preventDefault();
-
+      
         newPage.style.display = "none";
         indivPage.style.display = "none";
         homePage.innerHTML = "";
@@ -109,39 +91,64 @@ function activateNavBar(){
 
 function displayCityFilter(storyArray){
     let entireSize = storyArray.length;
-    let newArray = [];
- 
-    for(i = 0; i < entireSize - 1; i++){
-        let filteredArray = storyArray.filter(story=> story.title == storyArray[i].title);
+    let sortedByObjects = [];
+    let oneTypeArray = [];
+     let sortedByTitle = storyArray.sort(titleCompare);
 
-        entireSize -= filteredArray.length;
+    for(i = 0; i < entireSize; i++){
+        let filteredArray = sortedByTitle.filter(story=> story.title == storyArray[i].title);
 
-        newArray.push(filteredArray[0]);
+        sortedByObjects.push(filteredArray); 
+
+        i+= (filteredArray.length - 1);
     }
-    let newSize = newArray.length
+    sortedByObjects.sort(lengthCompare);
+    let reverseObjects = sortedByObjects.reverse();
 
-    for(count = 0; count < newSize - 1; count++){
-        let duplicateArray = storyArray.filter(story => story.title == newArray[count].title);
+    let sanitizedArray = [];
+    reverseObjects.forEach(array => {
+        array.forEach(element => sanitizedArray.push(element))});
 
+    let newSize = reverseObjects.length; 
+
+    for(count = 0; count < newSize; count++){
+        oneTypeArray.push(reverseObjects[count][0]);
+        let duplicateArray = sanitizedArray.filter(eachObj => eachObj.title == oneTypeArray[count].title);
+            
         let divParent = document.createElement("div");
-            divParent.classList.add("filtered-city");
+            divParent.classList.add("filtered-page");
         
         let titleNode = document.createElement("h2");
-            titleNode.textContent = newArray[count].title;
-
+            titleNode.textContent = oneTypeArray[count].title;
+      
         divParent.append(titleNode);
-        duplicateArray.forEach(storyObj=> {
+        duplicateArray.forEach(storyObj=> { 
             divParent.append(renderStoryBeforeHomePage(storyObj));
         })
 
         homePage.append(divParent);
-       
-        // homePage.style.display= "block";
     }
-
-    // homePage.append(divNode);
-
 }
+
+function titleCompare( a, b ) {
+    if ( a.title < b.title){
+      return -1;
+    }
+    if ( a.title > b.title ){
+      return 1;
+    }
+    return 0;
+}
+
+function lengthCompare( a, b ) {
+    if ( a.length < b.length){
+      return -1;
+    }
+    if ( a.length > b.length ){
+      return 1;
+    }
+    return 0;
+} 
 
 function fetchForecast(){
     searchBar.addEventListener("submit", event => {
@@ -165,11 +172,6 @@ function fetchForecast(){
     })
 }
 
-function renderForecast(daysArray){
-    daysArray.forEach(day => {
-
-    })
-}
 function renderStory(storyObj) {
     indivPage.style.display = "none";
 
