@@ -9,7 +9,7 @@ const locationUrl = baseUrl + "/locations";
 
 const homePage = document.querySelector(".diary-collection");
 const indivPage = document.querySelector(".single-container");
-const newPage = document.querySelector(".create-story");
+const newPage = document.querySelector(".story-form");
 const moodView = document.querySelector(".mood-view");
 const cityView = document.querySelector(".city-view");
 const dateView = document.querySelector(".date-view");
@@ -22,7 +22,7 @@ const sickParent = document.querySelector(".sick");
 const forecastBtn = document.querySelector(".forecast_btn");
 const searchBar = document.querySelector(".search");
 
-const title = document.querySelector(".title");
+const city = document.querySelector(".city");
 const weather = document.querySelector(".weather");
 const mood = document.querySelector(".mood");
 
@@ -167,10 +167,10 @@ function displayCityFilter(storyArray){
     let sortedByObjects = [];
     let oneTypeArray = [];
     let sanitizedArray = [];
-    let sortedByTitle = storyArray.sort(letterCompare);
+    let sortedBycity = storyArray.sort(letterCompare);
 
     for(i = 0; i < entireSize; i++){
-        let filteredArray = sortedByTitle.filter(story=> story.title == storyArray[i].title);
+        let filteredArray = sortedBycity.filter(story=> story.city == storyArray[i].city);
 
         sortedByObjects.push(filteredArray); 
 
@@ -186,15 +186,15 @@ function displayCityFilter(storyArray){
 
     for(count = 0; count < newSize; count++){
         oneTypeArray.push(reverseObjects[count][0]);
-        let duplicateArray = sanitizedArray.filter(eachObj => eachObj.title == oneTypeArray[count].title);
+        let duplicateArray = sanitizedArray.filter(eachObj => eachObj.city == oneTypeArray[count].city);
             
         let divParent = document.createElement("div");
             divParent.classList.add("filtered-page");
         
-        let titleNode = document.createElement("h2");
-            titleNode.textContent = oneTypeArray[count].title;
+        let cityNode = document.createElement("h2");
+            cityNode.textContent = oneTypeArray[count].city;
       
-        divParent.append(titleNode);
+        divParent.append(cityNode);
         duplicateArray.forEach(storyObj=> { 
             divParent.append(returnStoryDiv(storyObj));
         })
@@ -206,10 +206,10 @@ function displayCityFilter(storyArray){
 }
 
 function letterCompare( a, b ) {
-    if ( a.title < b.title){
+    if ( a.city < b.city){
       return -1;
     }
-    if ( a.title > b.title ){
+    if ( a.city > b.city ){
       return 1;
     }
     return 0;
@@ -264,10 +264,10 @@ function displayDateFilter(storyArray){
         let divParent = document.createElement("div");
             divParent.classList.add("filtered-page");
         
-        let titleNode = document.createElement("h2");
-            titleNode.textContent = oneTypeArray[count].year;
+        let cityNode = document.createElement("h2");
+            cityNode.textContent = oneTypeArray[count].year;
       
-        divParent.append(titleNode);
+        divParent.append(cityNode);
         duplicateArray.forEach(storyObj=> { 
             divParent.append(returnStoryDiv(storyObj));
         })
@@ -322,14 +322,14 @@ function returnStoryDiv(storyObj) {
 
     divNode.style.backgroundImage = `url(${storyImg})`;
 
-    let titleNode = document.createElement("h2");
-    titleNode.textContent = storyObj.title;
+    let cityNode = document.createElement("h2");
+    cityNode.textContent = storyObj.city;
 
 
     let moraleNode = document.createElement("p");
     moraleNode.textContent = `One-liner: ${storyObj.content}`;
 
-    divNode.append(titleNode,moraleNode);
+    divNode.append(cityNode,moraleNode);
 
 
     divNode.addEventListener("click", event => { 
@@ -371,8 +371,8 @@ function renderDiary(storyObj,listArray,weatherArray,moodArray) {
     indivPage.dataset.id = storyObj.id;
 
 
-    let titleNode = indivPage.querySelector("h2");
-        titleNode.textContent = storyObj.title;
+    let cityNode = indivPage.querySelector("h2");
+        cityNode.textContent = storyObj.city;
 
     let dateNode = indivPage.querySelector(".date-display");
         dateNode.textContent = `${storyObj.month}-${storyObj.day}-${storyObj.year}`;
@@ -446,6 +446,7 @@ function storyChange(storyObj, listArray, weatherArray, moodArray){
             renderDiary(newStoryObj, listArray, weatherArray, moodArray);
         })})
 }
+
 function createStory(){
  
 }

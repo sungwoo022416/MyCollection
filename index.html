@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="city-view.css">
     <link rel="stylesheet" href="date-view.css">
     <link rel="stylesheet" href="mood-view.css">
+    <link rel="stylesheet" href="new-page.css">
 
     <script defer type="text/javascript" src="src/index.js"></script>
   </head>
@@ -38,9 +39,31 @@
         </div>
     </div>
 
-    <div class="create-story">
+    <div class="new-page">
       <form class="story-form">
-
+        <div class="create-story">
+          <div class="city-div">
+            <h2 class="city">City</h2>
+            <em class="date-display"></em>
+          </div>
+          <div class="story-div">
+            <span class="paper-edit">Click to Save!</span>
+              <form class="paper-form">
+                <textarea type="text" name="story" value="" placeholder="" class="paper-div"></textarea>
+              </form>
+            <span class="story">Story</span>
+            </div>
+  
+          <div class="weather-div">
+            <em class="temperature"></em>
+            <img class="icon">
+            <span class="weather">Weather</span>
+          </div>
+          <div class="mood-div">
+            <strong class="mood-state"></strong>
+            <em class="mood-content"></em>
+            <span class="mood">Mood</span>
+          </div>
       </form>
     </div>
     
@@ -75,10 +98,10 @@
     </div>
     <div class="city-view"></div>
     <div class="date-view"></div>
-    
+
     <div class="single-container">
-        <div class="title-div">
-          <h2 class="title"></h2>
+        <div class="city-div">
+          <h2 class="city"></h2>
           <em class="date-display"></em>
         </div>
         <div class="story-div">
@@ -97,7 +120,7 @@
         <div class="mood-div">
           <strong class="mood-state"></strong>
           <em class="mood-content"></em>
-          <span class="mood">Mood</span>
+          <span class="mood"></span>
         </div>
         <div class="to-do-div">
           <div class="new-task">

@@ -1,4 +1,3 @@
-
 .single-container{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -38,12 +37,12 @@
   overflow: hidden;
 }
 
-.title-div{
+.single-container .city-div{
   grid-column: 1/4;
   grid-row: 1/2;
 }
 
-.title-div .date-display{
+.single-container .city-div .date-display{
   visibility: hidden;
 }
 
@@ -51,76 +50,76 @@
   visibility: visible;
 }
 
-.story-div{
+.single-container .story-div{
   grid-column: 3/6; 
   grid-row: 2/6;
 }
 
-.story-div > .paper-edit, .paper-form{ 
+.single-container .story-div > .paper-edit, .paper-form{ 
   visibility: hidden;
 }
 
-.story-div:hover > *{
+.single-container .story-div:hover > *{
   visibility: visible;
 }
 
-.story-div:hover .story{
+.single-container .story-div:hover .story{
   visibility: hidden;
 }
 
-.to-do-div{
+.single-container .to-do-div{
   grid-column: 1/3;
   grid-row: 3/6;
 }
 
-.to-do-div > .new-task {
+.single-container .to-do-div > .new-task {
   visibility: hidden;
 }
 
-.to-do-div:hover .to-do{
+.single-container .to-do-div:hover .to-do{
   visibility: hidden;
 }
 
-.to-do-div:hover .new-task {
+.single-container .to-do-div:hover .new-task {
   visibility: visible;
 }
 
-.weather-div{
+.single-container .weather-div{
   grid-column: 4/6;
   grid-row: 1/2;
   letter-spacing: 3px;
 }
 
-.weather-div > .temperature, .icon{
+.single-container .weather-div > .temperature, .icon{
   visibility: hidden;
 }
 
-.weather-div:hover > *{
+.single-container .weather-div:hover > *{
   visibility: visible;
 }
 
-.weather-div:hover .weather{
+.single-container .weather-div:hover .weather{
   visibility: hidden;
 }
 
-.mood-div{
+.single-container .mood-div{
   grid-column: 1/3;
   grid-row: 2/3;
 }
 
-.mood-div > .mood-state, .mood-content{
+.single-container .mood-div > .mood-state, .mood-content{
   visibility: hidden;
 }
 
-.mood-div:hover .mood-state{
+.single-container .mood-div:hover .mood-state{
   visibility: visible;
 }
 
-.mood-div:hover .mood-content{
+.single-container .mood-div:hover .mood-content{
   visibility: visible;
 }
 
-.mood-div:hover .mood{
+.single-container .mood-div:hover .mood{
   visibility: hidden;
 }
 .single-container div:hover{
@@ -227,12 +226,12 @@
 }
 
 
-span:hover{
+.single-container span:hover{
   z-index: 1;
 }
 
 
-.deleteBtn {
+.single-container .deleteBtn {
   margin-left: auto;
   display: block;
   width: 16px;
@@ -244,7 +243,7 @@ span:hover{
   cursor: pointer;
 }
 
-.paper-edit{
+.single-container .paper-edit{
   visibility: hidden;
   cursor:pointer;
   margin-top:20px;
@@ -267,7 +266,7 @@ span:hover{
   background-repeat:repeat-x;
 }
 
-.paper-edit:hover{
+.single-container .paper-edit:hover{
   zoom:1;
   opacity: 0.8;
 }
