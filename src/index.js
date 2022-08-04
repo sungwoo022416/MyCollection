@@ -157,7 +157,7 @@ function searchIteration(moodArray, storyArray, moodParent){
         storyArray.forEach(story => {
         if (mood.story_id == story.id){
 
-        let returnDiv = renderStoryBeforeHomePage(story);
+        let returnDiv = returnStoryDiv(story);
         moodParent.append(returnDiv);
         }})});
 }
@@ -166,7 +166,8 @@ function displayCityFilter(storyArray){
     let entireSize = storyArray.length;
     let sortedByObjects = [];
     let oneTypeArray = [];
-     let sortedByTitle = storyArray.sort(letterCompare);
+    let sanitizedArray = [];
+    let sortedByTitle = storyArray.sort(letterCompare);
 
     for(i = 0; i < entireSize; i++){
         let filteredArray = sortedByTitle.filter(story=> story.title == storyArray[i].title);
@@ -178,7 +179,6 @@ function displayCityFilter(storyArray){
     sortedByObjects.sort(lengthCompare);
     let reverseObjects = sortedByObjects.reverse();
 
-    let sanitizedArray = [];
     reverseObjects.forEach(array => {
         array.forEach(element => sanitizedArray.push(element))});
 
@@ -196,7 +196,7 @@ function displayCityFilter(storyArray){
       
         divParent.append(titleNode);
         duplicateArray.forEach(storyObj=> { 
-            divParent.append(renderStoryBeforeHomePage(storyObj));
+            divParent.append(returnStoryDiv(storyObj));
         })
 
         cityView.append(divParent);
@@ -226,10 +226,10 @@ function lengthCompare( a, b ) {
 } 
 
 function dateCompare( a, b ) {
-    if ( a.date < b.date){
+    if ( a.year < b.year){
       return -1;
     }
-    if ( a.date > b.date){
+    if ( a.year > b.year){
       return 1;
     }
     return 0;
@@ -237,6 +237,46 @@ function dateCompare( a, b ) {
 
 function displayDateFilter(storyArray){
     let sortedDates = storyArray.sort(dateCompare);
+    let entireSize = sortedDates.length;
+    let matchedObjects = [];
+    let sanitizedArray = [];
+    let oneTypeArray = [];
+
+    for(i = 0; i < entireSize; i++){
+        let filteredArray = sortedDates.filter(story=> story.year == storyArray[i].year);
+
+
+        matchedObjects.push(filteredArray); 
+
+        i+= (filteredArray.length - 1);
+    }
+    let reverseObjects = matchedObjects.reverse();
+  
+    reverseObjects.forEach(array => {
+        array.forEach(element => sanitizedArray.push(element))});
+
+    let newSize = reverseObjects.length; 
+
+    for(count = 0; count < newSize; count++){
+        oneTypeArray.push(reverseObjects[count][0]);
+        let duplicateArray = sanitizedArray.filter(eachObj => eachObj.year == oneTypeArray[count].year);
+            
+        let divParent = document.createElement("div");
+            divParent.classList.add("filtered-page");
+        
+        let titleNode = document.createElement("h2");
+            titleNode.textContent = oneTypeArray[count].year;
+      
+        divParent.append(titleNode);
+        duplicateArray.forEach(storyObj=> { 
+            divParent.append(returnStoryDiv(storyObj));
+        })
+
+        dateView.append(divParent);
+    }
+
+    dateFlag = 1;
+    
 
 }
 
@@ -264,13 +304,16 @@ function fetchForecast(){
 
 function renderStory(storyObj) {
     indivPage.style.display = "none";
+    newPage.style.display = "none";
+    moodView.style.display = "none";
+    cityView.style.display = "none";
+    dateView.style.display = "none";
 
-    
-    homePage.append(renderStoryBeforeHomePage(storyObj));
+    homePage.append(returnStoryDiv(storyObj));
 
 }
 
-function renderStoryBeforeHomePage(storyObj) {
+function returnStoryDiv(storyObj) {
     let divNode = document.createElement("div");
     divNode.classList.add("card");
     divNode.dataset.id = storyObj.id;
