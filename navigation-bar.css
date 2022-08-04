@@ -1,0 +1,80 @@
+.navigation-body {
+    margin-top: 2rem;
+    box-sizing: border-box;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height: 4vh;
+    font-family: "Inter", sans-serif;
+    
+}
+.navigation{
+    border-radius: 32px;
+    padding: 8px;
+    background-color: #deb887;
+    display:flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 14px 28px #D2B48C, 0 10px 10px #D2B48C	;
+}
+
+.navigation li{
+    list-style: none;
+    flex-basis: 100%;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    color: #555;
+    transform: translateY(0);
+    transition: transform 0.5s ease, opacity 0.2 ease;
+    cursor: pointer;
+}
+
+.navigation .home-item .home-icon{
+    width: 18px;
+    height: 18px;
+}
+
+.navigation .diary-item .diary-icon{
+    width: 20px;
+    height: 20px;
+}
+
+.navigation .mood-item .mood-icon{
+    width: 20px;
+    height: 20px;
+}
+
+.navigation .city-item .city-icon{
+    width: 20px;
+    height: 20px;
+}
+
+.navigation .date-item .calendar-icon{
+    width: 20px;
+    height: 20px;
+}
+
+
+.navigation .list-item-name{
+    font-size: 13px;
+    font-weight: 500;
+    height: 20px;
+    position: absolute;
+    transform: translate(0, 40px);
+    transition: trasform 0.5s ease, opacity 0.2s ease;
+    opacity: 0;
+}
+.navigation li:hover{
+    transform: translateY(-6px);
+}
+.navigation li:hover .list-item-name {
+    color: #fff;
+    transform: translateY(20px);
+    transition: transform 0.5s ease;
+    opacity: 1;
+}
+

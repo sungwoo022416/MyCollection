@@ -1,34 +1,46 @@
-const BASE_URL = "http://localhost:3000";
-const stories_url = BASE_URL + "/stories";
-const toDoListUrl = BASE_URL + "/to_do_lists";
-const passwords_url = "http://localhost:3000/passwords";
-const users_url = "http://localhost:3000/users";
-const weather_url = "http://localhost:3000/weathers";
-const mood_url = "http://localhost:3000/moods";
-const location_url = "http://localhost:3000/locations";
+const baseUrl = "http://localhost:3000";
+const storiesUrl = baseUrl  + "/stories";
+const toDoListUrl = baseUrl  + "/to_do_lists";
+const passwordUrl = baseUrl + "/passwords";
+const userUrl = baseUrl + "/users";
+const weatherUrl = baseUrl + "/weathers";
+const moodUrl = baseUrl + "/moods";
+const locationUrl = baseUrl + "/locations";
+
+const homePage = document.querySelector(".diary-collection");
+const indivPage = document.querySelector(".single-container");
+const newPage = document.querySelector(".create-story");
 
 const forecastBtn = document.querySelector(".forecast_btn");
 const searchBar = document.querySelector(".search");
-const homePage = document.querySelector(".diary-collection");
+
 const password_pop_up = document.querySelector(".password-pop-up");
 const passwordForm = document.querySelector(".password-form");
 const loginForm = document.querySelector(".login-form");
 const loginClean = document.querySelector(".clean");
-const indivPage = document.querySelector(".single-container");
-const newTask = document.querySelector(".new-task");
+
 
 const title = document.querySelector(".title");
-const story = document.querySelector(".story");
 const weather = document.querySelector(".weather");
-const toDo = document.querySelector(".toDo");
 const mood = document.querySelector(".mood");
+
+const toDo = document.querySelector(".to-do");
+const newTask = document.querySelector(".new-task");
+
+const story = document.querySelector(".story");
 const paperDiv = document.querySelector(".paper-div");
 const paperEdit = document.querySelector(".paper-edit");
 const paperForm = document.querySelector(".paper-form");
 
+const homeIcon = document.querySelector(".home-item");
+const diaryIcon = document.querySelector(".diary-item");
+const moodIcon = document.querySelector(".mood-item");
+const cityIcon = document.querySelector(".city-item");
+const dateIcon = document.querySelector(".date-item");
+
 let correctPassword = [];
 
-// fetch(users_url)
+// fetch(userUrl)
 // .then(res => res.json())
 // .then(userArray => verifyUser(userArray));
 
@@ -41,13 +53,15 @@ let correctPassword = [];
         
 //         userArray.forEach(user => {
 //             if(user.name == name && user.password == password){
-                fetch(stories_url)
+                fetch(storiesUrl)
                 .then(res => res.json())
                 .then(storyArray => {
-                    storyArray.forEach(storyObj => {
-                        renderStory(storyObj)
+                        storyArray.forEach(story => {
+                            renderStory(story);
+                        })
+                        activateNavBar();
                     })
-                })
+                
 
 //                 loginForm.style.display = "none";
 //                 loginClean.innerHTML = "";
@@ -55,27 +69,85 @@ let correctPassword = [];
 //         })
 //     })
 // }
-
 // function renderStories(storyArray, user) {
 //     storyArray.forEach(storyObj => {
 //         if(user.id == storyObj.user_id)
 //         renderStory(storyObj)
 //     });
 // }
+function activateNavBar(){
+    homeIcon.addEventListener("click", event => {
+        event.preventDefault();
+    
+        newPage.style.display = "none";
+        indivPage.style.display = "none";
+        homePage.style.display = "block";
+        
+    })
 
-function headerFunctions(){
-    forecastBtn.addEventListener("click", event => {
+    diaryIcon.addEventListener("click", event => {
         event.preventDefault();
 
-        fetchForecast();
+        homePage.style.display = "none";
+        indivPage.style.display = "none";
+        createStory();
     })
+
+    cityIcon.addEventListener("click", event => {
+        event.preventDefault();
+
+        newPage.style.display = "none";
+        indivPage.style.display = "none";
+        homePage.innerHTML = "";
+   
+        fetch(storiesUrl)
+        .then(res => res.json())
+        .then(storyArray => {
+        displayCityFilter(storyArray)});
+    })
+}
+
+function displayCityFilter(storyArray){
+    let entireSize = storyArray.length;
+    let newArray = [];
+ 
+    for(i = 0; i < entireSize - 1; i++){
+        let filteredArray = storyArray.filter(story=> story.title == storyArray[i].title);
+
+        entireSize -= filteredArray.length;
+
+        newArray.push(filteredArray[0]);
+    }
+    let newSize = newArray.length
+
+    for(count = 0; count < newSize - 1; count++){
+        let duplicateArray = storyArray.filter(story => story.title == newArray[count].title);
+
+        let divParent = document.createElement("div");
+            divParent.classList.add("filtered-city");
+        
+        let titleNode = document.createElement("h2");
+            titleNode.textContent = newArray[count].title;
+
+        divParent.append(titleNode);
+        duplicateArray.forEach(storyObj=> {
+            divParent.append(renderStoryBeforeHomePage(storyObj));
+        })
+
+        homePage.append(divParent);
+       
+        // homePage.style.display= "block";
+    }
+
+    // homePage.append(divNode);
+
 }
 
 function fetchForecast(){
     searchBar.addEventListener("submit", event => {
         event.preventDefault();
         const city = event.target.city.value;
-        fetch(location_url)
+        fetch(locationUrl)
         .then(res => res.json())
         .then(locationArray => {
 
@@ -100,8 +172,13 @@ function renderForecast(daysArray){
 }
 function renderStory(storyObj) {
     indivPage.style.display = "none";
-    homePage.style.display = "block";
 
+    
+    homePage.append(renderStoryBeforeHomePage(storyObj));
+
+}
+
+function renderStoryBeforeHomePage(storyObj) {
     let divNode = document.createElement("div");
     divNode.classList.add("card");
     divNode.dataset.id = storyObj.id;
@@ -117,83 +194,27 @@ function renderStory(storyObj) {
     let moraleNode = document.createElement("p");
     moraleNode.textContent = `One-liner: ${storyObj.content}`;
 
-    homePage.append(divNode);
     divNode.append(titleNode,moraleNode);
 
-    titleNode.style.visibility = "hidden";
-    moraleNode.style.visibility= "hidden";
-
-    divNode.addEventListener("mouseover", event => {
-        event.preventDefault();
-    
-        titleNode.style.visibility= "visible";
-        moraleNode.style.visibility = "visible";
-
-    })
-
-    divNode.addEventListener("mouseout", event => {
-        event.preventDefault();
-    
-        titleNode.style.visibility= "hidden";
-    moraleNode.style.visibility = "hidden";
-
-    })
 
     divNode.addEventListener("click", event => { 
         event.preventDefault();
-        
+        homePage.style.display = "none";
 
-        setTimeout(function(){
-            divNode.style.visibility = "hidden";
-        }, 100);
-
-        // setTimeout(function(){
-            // password_pop_up.style.display = "flex";
-        // }, 400);
         fetchingData(storyObj);
-     
     })
 
-    passwordForm.addEventListener("submit", event => {
-        event.preventDefault();
-
-        matchPassword(storyObj, event);
-    })
-
-    divNode.style.visibility = "visible";
-}
-
-function matchPassword(storyObj, event){
-
-    const inputPassword = event.target.password.value;
-
-    fetch(passwords_url)
-    .then(res => res.json())
-    .then(passwordArray => {
-        
-        passwordArray.forEach(password =>{
-            if(password.story_id == storyObj.id){
-                correctPassword.push(password.code);
-            }
-        })
-        if(correctPassword == inputPassword){
-            fetchingData(storyObj);
-        }else{
-            password_pop_up.style.display = "none";
-            console.log("failed login");
-        }
-
-    })
+    return divNode;
 }
 
 function fetchingData(storyObj) {
     fetch(toDoListUrl)
     .then(res => res.json())
             .then(listArray => {
-                fetch(weather_url)
+                fetch(weatherUrl)
                 .then(res => res.json())
                 .then(weatherArray => {
-                    fetch(mood_url)
+                    fetch(moodUrl)
                     .then(res => res.json())
                     .then(moodArray => renderDiary(storyObj,
                         listArray, weatherArray,moodArray))})});
@@ -201,7 +222,6 @@ function fetchingData(storyObj) {
 }
 
 function renderDiary(storyObj,listArray,weatherArray,moodArray) {
-    homePage.style.display = "none";
     indivPage.style.display = "grid";
     
     let storyImg = storyObj.image;
@@ -212,84 +232,32 @@ function renderDiary(storyObj,listArray,weatherArray,moodArray) {
 
     indivPage.dataset.id = storyObj.id;
 
+
     let titleNode = indivPage.querySelector("h2");
         titleNode.textContent = storyObj.title;
 
-    title.parentElement.addEventListener("mouseover", event => {
-        event.preventDefault();
+    let dateNode = indivPage.querySelector(".date-display");
+    dateNode.textContent = ` ${storyObj.date}`;
 
-        let dateNode = indivPage.querySelector(".date-display");
-        dateNode.textContent = ` ${today}`;
+    storyChange(storyObj,listArray,weatherArray,moodArray); //editing the story
 
-    })
+    let weatherDiv = indivPage.querySelector(".weather-div");
+    let temperature = weatherDiv.querySelector(".temperature");
+    let weatherIcon = weatherDiv.querySelector("img");
+    weatherArray.forEach(weather => {
+    if(weather.story_id == storyObj.id){
+        temperature.innerHTML = `min: ${weather.min} F <br>
+        max: ${weather.max} F <br>
+        weather: ${weather.icon_day}`;
+        weatherIcon.src= `src/image/${weather.icon_day}.png`;
+    }})
 
-    title.parentElement.addEventListener("mouseout", event => {
-        event.preventDefault();
-   
-        title.nextElementSibling.innerHTML="";
-    })
-
-    storyChange(storyObj,listArray,weatherArray,moodArray);
-
-    story.parentElement.addEventListener("mouseover", event => {
-        event.preventDefault();
-
-        story.style.display= "none";
-        paperDiv.style.visibility = "visible";
-        paperEdit.style.visibility = "visible";
-
-    })
-
-    story.parentElement.addEventListener("mouseout", event => {
-        event.preventDefault();
-        
-        story.style.display= "flex";
-        paperDiv.style.visibility = "hidden";
-        paperEdit.style.visibility = "hidden";
-
-    })
-
-    weather.parentElement.addEventListener("mouseover", event => {
-        event.preventDefault();
-        weather.style.display= "none";
-
-        let weatherDiv = indivPage.querySelector(".weather-div");
-        let temperature = weatherDiv.querySelector(".temperature");
-        let weatherIcon = weatherDiv.querySelector("img");
-        weatherArray.forEach(weather => {
-        if(weather.story_id == storyObj.id){
-            temperature.textContent = `min: ${weather.min} F max: ${weather.max} F weather: ${weather.icon_day}`;
-            weatherIcon.src= `src/image/${weather.icon_day}.png`;
-        }
-        weatherDiv.append(temperature, weatherIcon);
-    })})
-
-    weather.parentElement.addEventListener("mouseout", event => {
-        event.preventDefault();
-        
-        weather.style.display= "flex";
-        weather.nextElementSibling.innerHTML="";
-        weather.nextElementSibling.nextElementSibling.src="";
-    })
+    weatherDiv.append(temperature, weatherIcon, weather);
 
     let listing = renderToDo(storyObj,listArray);
 
-    toDo.parentElement.addEventListener("mouseover", event => {
-        event.preventDefault();
-
-        toDo.style.display= "none";
-        newTask.style.display="flex";
-        newTask.append(listing);
-        listing.style.display ="block";
-    
-    })
-
-    toDo.parentElement.addEventListener("mouseout", event => {
-        event.preventDefault();
-        toDo.style.display= "flex";
-        newTask.style.display ="none";
-        
-    })
+    newTask.append(listing);
+    listing.style.display ="block";
 
     let newListForm = document.querySelector(".task-form");
 
@@ -299,31 +267,17 @@ function renderDiary(storyObj,listArray,weatherArray,moodArray) {
         const taskInput = event.target[0].value;
         addingNewTask(storyObj, taskInput, listing);
     })
-
     
-    mood.parentElement.addEventListener("mouseover", event => {
-        event.preventDefault();
-        mood.style.display= "none";
-        let moodDiv = indivPage.querySelector(".mood-div");
-        let moodContent = moodDiv.querySelector(".mood-content");
-        let moodState = moodDiv.querySelector("strong");
-        moodArray.forEach(mood => {
-            if(mood.story_id == storyObj.id){
-                moodContent.textContent = `One-liner: ${mood.one_liner}`;
-                moodState.textContent = `${mood.feeling}`;
-            }
+    let moodDiv = indivPage.querySelector(".mood-div");
+    let moodContent = moodDiv.querySelector(".mood-content");
+    let moodState = moodDiv.querySelector("strong");
+    moodArray.forEach(mood => {
+        if(mood.story_id == storyObj.id){
+            moodContent.textContent = `One-liner: ${mood.one_liner}`;
+            moodState.textContent = `${mood.feeling}`;
+        }})
 
-        moodDiv.append(moodState, moodContent);
-    })})
-
-    mood.parentElement.addEventListener("mouseout", event => {
-        event.preventDefault();
-        
-        mood.style.display= "flex";
-        mood.nextElementSibling.innerHTML="";
-        mood.nextElementSibling.nextElementSibling.innerHTML="";
-    })
-
+    moodDiv.append(moodState, moodContent, mood);
 }
 
 function storyChange(storyObj, listArray, weatherArray, moodArray){
@@ -348,13 +302,15 @@ function storyChange(storyObj, listArray, weatherArray, moodArray){
             body: JSON.stringify(updateStory)
         }
 
-        fetch(stories_url + `/${storyObj.id}`, configObj)
+        fetch(storiesUrl + `/${storyObj.id}`, configObj)
         .then(res => res.json())
         .then(newStoryObj => {
             renderDiary(newStoryObj, listArray, weatherArray, moodArray);
         })})
 }
-
+function createStory(){
+ 
+}
 function addingNewTask(storyObj, inputTask, listing){
     const task = inputTask;
     const story_id = storyObj.id;

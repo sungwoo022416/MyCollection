@@ -1,0 +1,23 @@
+.login-page{
+    position: fixed;
+    top: 0; left:0;
+    height: 100vh;
+    width: 100%;
+    background: rgba(0,0,0, 0.9);
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .login-page .content{
+    display: none;
+    padding: 2rem;
+    text-align: center;
+    background: #fff;
+    position: relative;
+    margin: 2rem;
+    width: 40rem;
+  }
+  .login-page .content.active{
+    display:inline-block;
+  }

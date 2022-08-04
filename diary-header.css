@@ -1,0 +1,18 @@
+#diary-header {
+    display: flex;
+    justify-content: center;
+    background: #deb887;
+    opacity: .8;
+    height:  7rem;
+    padding: 0.5rem;
+}
+
+#diary-header img{
+    width: auto;
+}
+
+#diary-header .diary-avatar {
+    justify-self: center;
+    height: 12rem;
+    width: auto;
+  }

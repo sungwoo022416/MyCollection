@@ -1,73 +1,19 @@
 body {
-  display: grid;
-    margin: 0;
-    font-family: monospace;
+  margin: 0;
+  font-family: monospace;
   }
 html {
   scroll-behavior: smooth;
 }
-
-  .login-page{
-    position: fixed;
-    top: 0; left:0;
-    height: 100vh;
-    width: 100%;
-    background: rgba(0,0,0, 0.9);
-    display: none;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .login-page .content{
-    display: none;
-    padding: 2rem;
-    text-align: center;
-    background: #fff;
-    position: relative;
-    margin: 2rem;
-    width: 40rem;
-  }
-  .login-page .content.active{
-    display:inline-block;
-  }
-
-  .diary-collection body {
-    margin: 0;
-    font-family: monospace;
-  }
-
-  #diary-header {
-    display: flex;
-    background: #deb887;
-    opacity: .8;
-    height:  7rem;
-    padding: 1rem;
-  }
-  #diary-header img {
-    justify-content: center;
-    
-  }
-
-  #diary-header li{
-    list-style: none;
-    width:15%;
-    justify-content: space-around;
-    font-weight: bold;
-  }
-
-  #diary-header .diary-avatar {
-    justify-self: center;
-    height: 12rem;
-    width: auto;
-  }
-  
   .diary-collection {
-    display: block;
-    margin: 5rem;
+    margin-left: 8rem;
+    margin-top: 3rem;
     font-family: 'DM-sans', sans-serif;
   }
   
   .diary-collection .card {
+    display: inline-grid;
+    justify-content: center;
     text-align: center;
     border: grey solid 1px;
     background-image: none;
@@ -77,40 +23,50 @@ html {
     padding: 1rem;
     width: 18rem;
     height: 18rem;
-    display: inline-grid;
-    margin: 1rem 2rem;
     color: #fff;
-    outline: .1rem solid #ccc;
+    outline: .35rem solid #ccc;
   }
+
 
   .diary-collection .card:hover {
     transition: all .5s ease-in-out;
+    transform: translateY(-30px);
     outline: .2rem solid #fff;
-    outline-offset: -1.6rem;
+    outline-offset: -1.3rem;
     cursor: pointer;
     opacity: 0.6;
  
   }
+  .diary-collection .card h2{
+    visibility: hidden;
+  }
 
-  .diary-collection .card:hover h2, p{
-      text-align: center;
-      top: 50%;
-      transform: translatey(80%);
-      margin: 0;
-      z-index: 3;
-    }
-
-  .diary-collection .card:hover p { 
-    transform: translatey(30px);
-    letter-spacing: 3px;
-    font-size: 0.9rem;
+  .diary-collection .card p{
+    visibility: hidden;
   }
 
   .diary-collection .card:hover h2{
-    font-size: 1.3rem;
+      text-align: center;
+      font-size: 1.3rem;
+      top: 50%;
+      transform: translateY(120px);
+      margin: 0;
+      z-index: 2;
+      visibility: visible;
+    }
+
+  .diary-collection .card:hover p { 
+    transform: translateY(50px);
+    letter-spacing: 3px;
+    font-size: 0.9rem;
+    visibility: inherit;
   }
 
-  
+  .diary-collection .card:active{
+    transition: 0.7s ease;
+    transform: translateY(-500px);
+  }
+
   .password-pop-up{
     position: fixed;
     top: 0; left:0;
