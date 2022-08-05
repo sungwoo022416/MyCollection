@@ -267,13 +267,13 @@ function createStory(event, id){
     const image = event.target.image.value;
     const content = event.target.content.value;
 
-    const temperature = event.target[4].value;
+    const temperature = event.target[3].value;
     const task = event.target.task.value;
     const feeling = event.target.feeling.value;
     const oneLiner = event.target["one-liner"].value;
 
     let tempInt = parseInt(temperature);
-
+    debugger;
     let iconArray= ["snow", "snow", "snow", "windy", "windy", 
     "mostly_cloudy","mostly_cloudy", "intermittent_clouds_day","sunny", "sunny", "hot"];
     
