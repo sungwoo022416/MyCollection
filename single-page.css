@@ -134,7 +134,6 @@
   font-size:20px;
   margin-left:12px;
   margin-bottom:20px;
-  overflow:hidden;
   background-color:#FFF;
   color:#222;
   font-family:Courier, monospace;
@@ -151,6 +150,7 @@
   box-shadow: 0px 2px 14px #000;
   border-top:1px solid #FFF;
   border-bottom:1px solid #FFF;
+  height: 140%;
 }
 
 /* .single-container .paper-div:active{
