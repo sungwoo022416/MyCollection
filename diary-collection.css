@@ -14,10 +14,11 @@
   background-size: cover;
   background-position: center;
   box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.4);
+  background-color: black;
   padding: 1rem;
   width: 18rem;
   height: 18rem;
-  color: #fff;
+  color: 	#fff;
   outline: .35rem solid #ccc;
 }
 
@@ -28,7 +29,7 @@
   outline: .2rem solid #fff;
   outline-offset: -1.3rem;
   cursor: pointer;
-  opacity: 0.6;
+  opacity: 0.5;
 
 }
 .diary-collection .card h2{

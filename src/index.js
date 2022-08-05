@@ -21,9 +21,6 @@ const humbledParent = document.querySelector(".humbled");
 const fraustratedParent = document.querySelector(".fraustrated");
 const sickParent = document.querySelector(".sick");
 
-const forecastBtn = document.querySelector(".forecast_btn");
-const searchBar = document.querySelector(".search");
-
 const city = document.querySelector(".city");
 const weather = document.querySelector(".weather");
 const mood = document.querySelector(".mood");
@@ -252,28 +249,6 @@ function displayDateFilter(storyArray){
     dateFlag = 1;
 }
 
-function fetchForecast(){
-    searchBar.addEventListener("submit", event => {
-        event.preventDefault();
-        const city = event.target.city.value;
-        fetch(locationUrl)
-        .then(res => res.json())
-        .then(locationArray => {
-
-            locationArray.forEach(location => {
-                if(city == location.name){
-                    let key = location.key;
-                }
-            })
-
-            const forecast_api = `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${key}?apikey=mHao3dolGFzNOMEdyryEEuArLplKidCL`;
-            fetch(forecast_api)
-            .then(res => res.json)
-            .then(daysArray => renderForecast(daysArray));
-        })
-    })
-}
-
 function respondToCreate(storyArray){
     let id = storyArray.length;
    storyForm.addEventListener("submit", event => {
@@ -413,12 +388,15 @@ function returnStoryDiv(storyObj, moodArray) {
     cityNode.textContent = storyObj.city;
    
     let moraleNode = document.createElement("p");
-
-    moodArray.forEach(mood =>{
+  
+    if(!Array.isArray(moodArray)){
+        moraleNode.textContent = `One-liner: ${mood.one_liner}`;
+    }else{
+    moodArray.find(mood =>{
         if(mood.story_id == storyObj.id){
             moraleNode.textContent = `One-liner: ${mood.one_liner}`;
         }
-    })
+    })};
 
     divNode.append(cityNode,moraleNode);
 
