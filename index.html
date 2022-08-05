@@ -22,32 +22,32 @@
   </head>
   <body>
     <div id='diary-header'>
-      <img src="src/image/logo.png" alt="diary-header">
+      <img class ="logo" src="src/image/logo.png" alt="myCollection">
     </div>
 
     <div class="navigation-body">
       <div class="navigation">
         <li class="home-item"><img class="home-icon" src="src/image/home-button.png">
-          <span class="list-item-name">Home</span></li>
+          <span class="home-item-name">Home</span></li>
         <li class="diary-item"><img class="diary-icon" src="src/image/new-diary.png">
-          <span class="list-item-name">New Story</span></li>
+          <span class="diary-item-name">New Story</span></li>
         <li class="mood-item"><img class="mood-icon" src="src/image/face.png">
-          <span class="list-item-name">ByMood</span></li>
+          <span class="mood-item-name">ByMood</span></li>
         <li class="city-item"><img class="city-icon" src="src/image/city.png">
-          <span class="list-item-name">ByCity</span></li>
+          <span class="city-item-name">ByCity</span></li>
         <li class="date-item"><img class="calendar-icon" src="src/image/calendar.png">
-          <span class="list-item-name">ByDate</span></li>
+          <span class="date-item-name">ByDate</span></li>
         </div>
     </div>
 
     <div class="new-page">
       <form class="story-form">
           <div class="story-div">
-            <input type="text" name="city" value="" placeholder="City Name..." class="input-text">
+            <input type="text" name="city" value="" placeholder="City Name..." class="input-text"required>
             <input type="text" name="month" value="" placeholder="Month..." class="input-text">
             <input type="text" name="day" value="" placeholder="Day..." class="input-text">
             <input type="text" name="year" value="" placeholder="Year..." class="input-text">
-            <input type="text" name="image" value="" placeholder="Image..." class="input-text">
+            <input type="url" name="image" value="" placeholder="Image..." class="input-text"required>
             <textarea type="text" name="content" value="" placeholder="Write Your Story..." class="paper-div"></textarea>
             </div>
           <div class="weather-div">
@@ -62,11 +62,9 @@
 
           <div ckass="to-do-div">
             <input type="text" name="task" value="" placeholder="task..." class="input-text">
-            <input type="text" name="task" value="" placeholder="task..." class="input-text">
-            <input type="text" name="task" value="" placeholder="task..." class="input-text">
           </div>
      
-          <input type="submit" name="submit" value="Create Story" class="submit" onclick="respondToCreate()">
+          <input type="submit" name="submit" value="Create Story" class="submit">
         </div>
       </form>
     </div>

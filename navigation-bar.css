@@ -59,7 +59,7 @@
 }
 
 
-.navigation .list-item-name{
+.navigation span{
     font-size: 13px;
     font-weight: 500;
     height: 20px;
@@ -71,7 +71,7 @@
 .navigation li:hover{
     transform: translateY(-6px);
 }
-.navigation li:hover .list-item-name {
+.navigation li:hover span{
     color: #fff;
     transform: translateY(20px);
     transition: transform 0.5s ease;

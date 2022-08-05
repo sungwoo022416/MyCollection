@@ -7,6 +7,7 @@ const weatherUrl = baseUrl + "/weathers";
 const moodUrl = baseUrl + "/moods";
 const locationUrl = baseUrl + "/locations";
 
+const navigation = document.querySelector(".navigation");
 const homePage = document.querySelector(".diary-collection");
 const indivPage = document.querySelector(".single-container");
 const newPage = document.querySelector(".story-form");
@@ -35,15 +36,10 @@ const paperDiv = document.querySelector(".paper-div");
 const paperEdit = document.querySelector(".paper-edit");
 const paperForm = document.querySelector(".paper-form");
 
-const homeIcon = document.querySelector(".home-item");
-const diaryIcon = document.querySelector(".diary-item");
-const moodIcon = document.querySelector(".mood-item");
-const cityIcon = document.querySelector(".city-item");
-const dateIcon = document.querySelector(".date-item");
-
 let cityFlag = 0;
 let moodFlag = 0;
 let dateFlag = 0;
+let diaryFlag = 0;
 
 helloPage()
 
@@ -54,80 +50,52 @@ function helloPage(){
             activateNavBar(storyArray);
 
             storyArray.forEach(story => {
+                pageIteration();
                 renderStory(story);
             })
      })
 }
 
+let pageArray = [homePage, newPage, moodView, cityView, dateView, indivPage]
+
+function pageIteration(){
+    pageArray.forEach(page => {
+        page.style.display = "none";
+    })
+}
+
 function activateNavBar(storyArray){
 
-    homeIcon.addEventListener("click", event => {
+    navigation.addEventListener("click", event => {
         event.preventDefault();
+        pageIteration();
 
-        homePage.style.display = "block";
-        indivPage.style.display = "none";
-        newPage.style.display = "none";
-        moodView.style.display = "none";
-        cityView.style.display = "none";
-        dateView.style.display = "none";
-  
+        let = prefixExtractor = [...event.target.classList][0].slice(0,4);
+     
+        if(prefixExtractor.includes("home")){
+            pageArray[0].style.display = "block";
+        }
+        else if(prefixExtractor.includes("diar")){
+            pageArray[1].style.display = "block";
+            (diaryFlag != 1)? respondToCreate(storyArray): false;
+        }
+        else if(prefixExtractor.includes("mood")){
+            pageArray[2].style.display = "block";
+
+            fetch(moodUrl)
+            .then(res => res.json())
+            .then(moodArray => {
+                (moodFlag != 1)? displayMoodFilter(moodArray,storyArray) : false });
+        }
+        else if(prefixExtractor.includes("city")){
+            pageArray[3].style.display = "block";
+            (cityFlag != 1)? displayCityFilter(storyArray) : false;
+        }
+        else if(prefixExtractor.includes("date")){
+            pageArray[4].style.display = "block";
+            (dateFlag != 1)? displayDateFilter(storyArray) : false;
+        }
     })
-
-    diaryIcon.addEventListener("click", event => {
-        event.preventDefault();
-
-        homePage.style.display = "none";
-        indivPage.style.display = "none";
-        newPage.style.display = "block";
-        moodView.style.display = "none";
-        cityView.style.display = "none";
-        dateView.style.display = "none";
-
-        respondToCreate(storyArray);
-
-    })
-
-    moodIcon.addEventListener("click", event => {
-        event.preventDefault();
-
-        homePage.style.display = "none";
-        indivPage.style.display = "none";
-        newPage.style.display = "none";
-        moodView.style.display = "block";
-        cityView.style.display = "none";
-        dateView.style.display = "none";
-
-        fetch(moodUrl)
-        .then(res => res.json())
-        .then(moodArray => {
-            (moodFlag != 1)? displayMoodFilter(moodArray,storyArray) : false});
-    })
-
-    cityIcon.addEventListener("click", event => {
-        event.preventDefault();
-      
-        homePage.style.display = "none";
-        indivPage.style.display = "none";
-        newPage.style.display = "none";
-        moodView.style.display = "none";
-        cityView.style.display = "block";
-        dateView.style.display = "none";
-        
-        (cityFlag != 1)? displayCityFilter(storyArray) : false;
-    })
-
-    dateIcon.addEventListener("click", event => {
-        event.preventDefault();
-      
-        homePage.style.display = "none";
-        indivPage.style.display = "none";
-        newPage.style.display = "none";
-        moodView.style.display = "none";
-        cityView.style.display = "none";
-        dateView.style.display = "block";
-   
-        (dateFlag != 1)? displayDateFilter(storyArray) : false;
-    });
 }
 
 function displayMoodFilter(moodArray, storyArray){
@@ -248,7 +216,6 @@ function displayDateFilter(storyArray){
     for(i = 0; i < entireSize; i++){
         let filteredArray = sortedDates.filter(story=> story.year == storyArray[i].year);
 
-
         matchedObjects.push(filteredArray); 
 
         i+= (filteredArray.length - 1);
@@ -277,9 +244,7 @@ function displayDateFilter(storyArray){
 
         dateView.append(divParent);
     }
-
     dateFlag = 1;
-    
 }
 
 function fetchForecast(){
@@ -305,17 +270,16 @@ function fetchForecast(){
 }
 
 function respondToCreate(storyArray){
-    const id = storyArray.length;
+    let id = storyArray.length;
    storyForm.addEventListener("submit", event => {
         event.preventDefault();
         createStory(event, id);
-
    })
-
    id++;
 }
 
 function createStory(event, id){
+
     const city = event.target.city.value;
     const month = event.target.month.value;
     const day = event.target.day.value;
@@ -327,11 +291,10 @@ function createStory(event, id){
     const feeling = event.target.feeling.value;
     const one_liner = event.target["one-liner"].value;
 
-    const task1 = event.target[10].value;
-    const task2 = event.target[11].value;
-    const task3 = event.target[12].value;
+    const task = event.target[10].value;
 
-    debugger;
+    let today = new Date().toLocaleDateString();
+   
     const createNewStory = {
         city,
         month,
@@ -339,7 +302,6 @@ function createStory(event, id){
         year,
         image,
         content,
-        user_id: 1
     }
 
     const createNewWeather = {
@@ -358,26 +320,74 @@ function createStory(event, id){
 
 
     const createNewTask = {
-        task: task1,
+        task,
         story_id: id
     }
 
-
-    configObj(createNewStory, createNewWeather, createNewMood, createNewTask);
-
+    let = objArray = [createNewStory,createNewWeather, createNewMood, createNewTask];
+    configNewStory(objArray);
 }
 
-function cofigObj(createNewStory, createNewWeather, createNewMood, createNewTask){
+function configNewStory(objArray){
 
+    let configStory = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(objArray[0])
+    }
+
+    let configWeather = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(objArray[1])
+    }
+
+    let configMood = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(objArray[2])
+    }
+
+    let configTask = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(objArray[3])
+        }
+        let configArray = [configStory, configWeather, configMood, configTask];
+        fetchingNewDiary(configArray);
+}
+
+function fetchingNewDiary(configArray){
+    fetch(storiesUrl, configArray[0])
+    .then(res => res.json())
+    .then(storyObj=> {
+       fetch(weatherUrl, configArray[1])
+       .then(res => res.json())
+       .then(weatherObj => {
+            fetch(moodUrl, configArray[2])
+            .then(res => res.json())
+            .then(moodObj => {
+                fetch(toDoListUrl, configArray[3])
+                .then(res => res.json())
+                .then(toDoObj => {
+                    renderDiary(storyObj, toDoObj, weatherObj, moodObj);
+                })
+            })
+       })
+    })
+    
 }
 
 function renderStory(storyObj){
     homePage.style.display = "block";
-    indivPage.style.display = "none";
-    newPage.style.display = "none";
-    moodView.style.display = "none";
-    cityView.style.display = "none";
-    dateView.style.display = "none";
 
     homePage.append(returnStoryDiv(storyObj));
 
@@ -416,7 +426,7 @@ function fetchingData(storyObj) {
     .then(res => res.json())
             .then(listArray => {
                 fetch(weatherUrl)
-                .then(res => res.json()) //async function
+                .then(res => res.json()) //async function 
                 .then(weatherArray => {
                     fetch(moodUrl)
                     .then(res => res.json())
@@ -425,19 +435,17 @@ function fetchingData(storyObj) {
 }
 
 function renderDiary(storyObj,listArray,weatherArray,moodArray) {
+    pageIteration();
     indivPage.style.display = "grid";
-    moodView.style.display = "none";
-    cityView.style.display = "none";
-    dateView.style.display = "none";
-    
-    let storyImg = storyObj.image;
 
-    indivPage.style.backgroundImage = `url(${storyImg})`;
-    
-    let today = new Date().toLocaleDateString();
+    if(storyObj.image === 'undefined'){
+        indivPage.style.backgroundImage = "url(https://www9.lunapic.com/editor/working/165966882843248960?988882853)";
+    }else{
+        let storyImg = storyObj.image;
+        indivPage.style.backgroundImage = `url(${storyImg})`;
+    }
 
     indivPage.dataset.id = storyObj.id;
-
 
     let cityNode = indivPage.querySelector("h2");
         cityNode.textContent = storyObj.city;
@@ -447,18 +455,7 @@ function renderDiary(storyObj,listArray,weatherArray,moodArray) {
 
     storyChange(storyObj,listArray,weatherArray,moodArray); //editing the story
 
-    let weatherDiv = indivPage.querySelector(".weather-div");
-    let temperature = weatherDiv.querySelector(".temperature");
-    let weatherIcon = weatherDiv.querySelector("img");
-    weatherArray.forEach(weather => {
-    if(weather.story_id == storyObj.id){
-        temperature.innerHTML = `min: ${weather.min} F <br>
-        max: ${weather.max} F <br>
-        weather: ${weather.icon_day}`;
-        weatherIcon.src= `src/image/${weather.icon_day}.png`;
-    }})
-
-    weatherDiv.append(temperature, weatherIcon, weather);
+    weatherAppend(weatherArray, storyObj);
 
     let listing = renderToDo(storyObj,listArray);
 
@@ -473,17 +470,8 @@ function renderDiary(storyObj,listArray,weatherArray,moodArray) {
         const taskInput = event.target[0].value;
         addingNewTask(storyObj, taskInput, listing);
     })
-    
-    let moodDiv = indivPage.querySelector(".mood-div");
-    let moodContent = moodDiv.querySelector(".mood-content");
-    let moodState = moodDiv.querySelector("strong");
-    moodArray.forEach(mood => {
-        if(mood.story_id == storyObj.id){
-            moodContent.textContent = `One-liner: ${mood.one_liner}`;
-            moodState.textContent = `${mood.feeling}`;
-        }})
 
-    moodDiv.append(moodState, moodContent, mood);
+    moodAppend(moodArray, storyObj);
 }
 
 function storyChange(storyObj, listArray, weatherArray, moodArray){
@@ -514,6 +502,50 @@ function storyChange(storyObj, listArray, weatherArray, moodArray){
         })})
 }
 
+function weatherAppend(weatherArray, storyObj){
+  
+    let weatherDiv = indivPage.querySelector(".weather-div");
+    let temperature = weatherDiv.querySelector(".temperature");
+    let weatherIcon = weatherDiv.querySelector("img");
+
+    if(Array.isArray(weatherArray)){
+        weatherArray.forEach(weather => {
+    if(weather.story_id == storyObj.id){
+        temperature.innerHTML = `min: ${weather.min} F <br>
+        max: ${weather.max} F <br>
+        weather: ${weather.icon_day}`;
+        weatherIcon.src= `src/image/${weather.icon_day}.png`;
+    }})}
+    else{
+        temperature.innerHTML = `min: ${weather.min} F <br>
+        max: ${weather.max} F <br>
+        weather: ${weather.icon_day}`;
+        weatherIcon.src= `src/image/${weather.icon_day}.png`;
+    }
+
+    weatherDiv.append(temperature, weatherIcon, weather);
+}
+
+function moodAppend(moodArray, storyObj){
+    let moodDiv = indivPage.querySelector(".mood-div");
+    let moodContent = moodDiv.querySelector(".mood-content");
+    let moodState = moodDiv.querySelector("strong");
+
+    if(Array.isArray(moodArray)){
+        moodArray.forEach(mood => {
+            if(mood.story_id == storyObj.id){
+                moodContent.textContent = `One-liner: ${mood.one_liner}`;
+                moodState.textContent = `${mood.feeling}`;
+            }})
+    }else{
+        moodContent.textContent = `One-liner: ${mood.one_liner}`;
+        moodState.textContent = `${mood.feeling}`;
+    }
+
+    moodDiv.append(moodState, moodContent, mood);
+}
+
+
 function addingNewTask(storyObj, inputTask, listing){
     const task = inputTask;
     const story_id = storyObj.id;
@@ -522,7 +554,7 @@ function addingNewTask(storyObj, inputTask, listing){
         task,
         story_id
     }
-    const configObj = {
+    let configObj = {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -545,14 +577,37 @@ function addingNewTask(storyObj, inputTask, listing){
 }
 
 function renderToDo(storyObj, listArray) {
-    let matchingList = [];
-    listArray.forEach(list => {
-        if (list.story_id === storyObj.id) {
-            matchingList.push(list);
-        }
-    });
-    let ul = document.createElement("ul");
-    matchingList.forEach(list => {
+    
+    if(Array.isArray(listArray)){
+        let matchingList = [];
+        listArray.forEach(list => {
+            if (list.story_id === storyObj.id) {
+                matchingList.push(list);
+            }});
+
+        let ul = document.createElement("ul");
+        matchingList.forEach(list => {
+            let doList = document.createElement("div");
+            doList.classList.add("task-list");
+            doList.dataset.id = list.id;
+            doList.textContent = `${list.task}`;
+    
+            let deleteBtn = document.createElement("button");
+            deleteBtn.classList.add("deleteBtn");
+            doList.append(deleteBtn);
+            ul.append(doList); 
+    
+            deleteBtn.addEventListener("click", event => {
+                event.preventDefault();
+    
+                fetch(toDoListUrl + `/${doList.dataset.id}`, {
+                    method: "DELETE"})
+                .then(res => res.json())
+                .then(() => doList.remove());
+                })})
+                return ul;
+    }else{
+        let ul = document.createElement("ul");
         let doList = document.createElement("div");
         doList.classList.add("task-list");
         doList.dataset.id = list.id;
@@ -571,9 +626,8 @@ function renderToDo(storyObj, listArray) {
             .then(res => res.json())
             .then(() => doList.remove());
             })
-        })
-
-    return ul;
+        return ul;
+    }
 }
 
 
