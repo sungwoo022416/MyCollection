@@ -28,8 +28,7 @@ const city = document.querySelector(".city");
 const weather = document.querySelector(".weather");
 const mood = document.querySelector(".mood");
 
-const toDo = document.querySelector(".to-do");
-const newTask = document.querySelector(".new-task");
+const tempTask = document.querySelector(".cleaning-task");
 
 const story = document.querySelector(".story");
 const paperDiv = document.querySelector(".paper-div");
@@ -40,13 +39,15 @@ let cityFlag = 0;
 let moodFlag = 0;
 let dateFlag = 0;
 
+
 helloPage()
 
 function helloPage(){
     fetch(storiesUrl)
     .then(res => res.json())
     .then(storyArray => {
-            homePage.innerHTML ="";
+
+            homePage.innerHTML="";
             activateNavBar(storyArray);
 
             storyArray.forEach(story => {
@@ -74,6 +75,8 @@ function activateNavBar(storyArray){
      
         if(prefixExtractor.includes("home")){
             pageArray[0].style.display = "block";
+            helloPage();
+
         }
         else if(prefixExtractor.includes("diar")){
             pageArray[1].style.display = "block";
@@ -380,10 +383,8 @@ function fetchingNewDiary(configArray){
             .then(moodObj => {
                 fetch(toDoListUrl, configArray[3])
                 .then(res => res.json())
-                .then(toDoObj => {
-                    helloPage();
-                    pageArray[1].style.display = "none";
-                    pageArray[5].style.display = "grid";
+                .then(listObj => {
+                    renderDiary(storyObj,listObj,weatherObj,moodObj)
                 })
             })
        })
@@ -408,10 +409,9 @@ function returnStoryDiv(storyObj) {
 
     let cityNode = document.createElement("h2");
     cityNode.textContent = storyObj.city;
-
-
+    debugger;
     let moraleNode = document.createElement("p");
-    moraleNode.textContent = `One-liner: ${storyObj.content}`;
+    moraleNode.textContent = `One-liner: ${story.content}`;
 
     divNode.append(cityNode,moraleNode);
 
@@ -439,6 +439,7 @@ function fetchingData(storyObj) {
 }
 
 function renderDiary(storyObj,listArray,weatherArray,moodArray) {
+    tempTask.innerHTML = "";
     pageIteration();
     indivPage.style.display = "grid";
     
@@ -458,9 +459,8 @@ function renderDiary(storyObj,listArray,weatherArray,moodArray) {
     weatherAppend(weatherArray, storyObj);
 
     let listing = renderToDo(storyObj,listArray);
-
-    newTask.append(listing);
-    listing.style.display ="block";
+    
+    tempTask.appendChild(listing);
 
     let newListForm = document.querySelector(".task-form");
 
@@ -472,6 +472,11 @@ function renderDiary(storyObj,listArray,weatherArray,moodArray) {
     })
 
     moodAppend(moodArray, storyObj);
+
+    if(!Array.isArray(listArray)){
+        newPage.style.display = "none";
+        indivPage.style.display = "grid";
+    }
 
 }
 
@@ -543,7 +548,7 @@ function moodAppend(moodArray, storyObj){
 }
 
 
-function addingNewTask(storyObj, inputTask, listing){
+function addingNewTask(storyObj, inputTask,listing){
     const task = inputTask;
     const story_id = storyObj.id;
 
@@ -562,15 +567,24 @@ function addingNewTask(storyObj, inputTask, listing){
     fetch(toDoListUrl, configObj)
     .then(res => res.json())
     .then(taskObj => {
-        let doList = document.createElement("div");
-        doList.classList.add("task-list");
-        doList.dataset.id = taskObj.id;
-        doList.textContent = `${taskObj.task}`;
-        let deleteBtn = document.createElement("button");
-        deleteBtn.classList.add("deleteBtn");
-        doList.append(deleteBtn);
-       listing.append(doList);
+            taskHelper(taskObj, listing)
+    
     });
+
+}
+
+function taskHelper(taskObj, listing){
+    let doList = document.createElement("div");
+    doList.classList.add("task-list");
+    doList.dataset.id = taskObj.id;
+    doList.textContent = `${taskObj.task}`;
+    let deleteBtn = document.createElement("button");
+    deleteBtn.classList.add("deleteBtn");
+    doList.append(deleteBtn);
+   listing.append(doList);
+   deleteBtn.addEventListener("click", event => {
+        event.preventDefault()
+        doList.remove()});
 }
 
 function renderToDo(storyObj, listArray) {
