@@ -5,8 +5,8 @@ class WeathersController < ApplicationController
     end
 
     def create
-    @weather = Weather.create(weather_params)
-    render json: @weather, except: [:created_at, :updated_at]
+        @weather = Weather.create(weather_params)
+        render json: @weather, except: [:created_at, :updated_at]
     end
 
     private

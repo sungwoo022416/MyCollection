@@ -33,17 +33,14 @@ images = [
     "https://images.unsplash.com/photo-1512438248247-f0f2a5a8b7f0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fGZyZWV8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60",
     "https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fGZyZWV8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60",
     "https://media.istockphoto.com/photos/woman-work-in-vacation-remotely-picture-id1340056081?b=1&k=20&m=1340056081&s=170667a&w=0&h=iUqkSSPmwtt3jZfR50np0JhQjiF3KwAkGcEzPU_nk5E=",
-    "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8Zm9vZHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60"
+    "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8Zm9vZHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60",
+
 ]
 
 i = 0;
 j = 1;
 z = 1;
 
-User.create(
-    name: "#{Faker::Name.initials(number: 2)}#{rand(1..9)}#{rand(1..9)}#{rand(1..9)}#{rand(1..9)}",
-    password: "1234",
-  )
 20.times do
     Story.create(
         city: city[i],
@@ -51,8 +48,7 @@ User.create(
         day: "#{rand(1..30)}",
         year: "#{rand(2000..2020)}",
         image: "#{images[i]}",
-        content: Faker::GreekPhilosophers.quote,
-        user_id: 1
+        content: Faker::GreekPhilosophers.quote
     )
     i += 1
 
@@ -62,13 +58,7 @@ User.create(
         story_id: j
     )
     end
-
-    Password.create(
-        code: "#{j}",
-        story_id: j
-    )
     j += 1
-
 end
 
 LOCATION_KEY.each do |key, value|

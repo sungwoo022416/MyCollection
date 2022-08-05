@@ -3,6 +3,5 @@ class Story < ApplicationRecord
     has_one :weather, dependent: :destroy;
     has_one :password, dependent: :destroy;
     has_one :mood, dependent: :destroy;
-    belongs_to :user;
 
 end

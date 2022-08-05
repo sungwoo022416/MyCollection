@@ -7,7 +7,6 @@ class CreateStories < ActiveRecord::Migration[7.0]
       t.string :year
       t.string :image
       t.string :content
-      t.references :user
 
       t.timestamps
     end
