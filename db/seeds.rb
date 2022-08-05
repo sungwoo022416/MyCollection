@@ -44,9 +44,8 @@ z = 1;
 20.times do
     Story.create(
         city: city[i],
-        month: "0#{rand(1..9)}",
-        day: "#{rand(1..30)}",
-        year: "#{rand(2000..2020)}",
+        date: "#{rand(2000..2020)}-0#{rand(1..9)}-#{rand(1..30)}",
+        year: "#{rand(2000..2020)}"
         image: "#{images[i]}",
         content: Faker::GreekPhilosophers.quote
     )

@@ -18,6 +18,6 @@ class StoriesController < ApplicationController
     private
 
     def story_params
-        params.require(:story).permit(:city, :month, :day, :year, :image, :content)
+        params.require(:story).permit(:city, :image, :year, :date, :content)
     end
 end
