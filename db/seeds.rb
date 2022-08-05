@@ -45,7 +45,7 @@ z = 1;
     Story.create(
         city: city[i],
         date: "#{rand(2000..2020)}-0#{rand(1..9)}-#{rand(1..30)}",
-        year: "#{rand(2000..2020)}"
+        year: "#{rand(2000..2020)}",
         image: "#{images[i]}",
         content: Faker::GreekPhilosophers.quote
     )
@@ -60,12 +60,6 @@ z = 1;
     j += 1
 end
 
-LOCATION_KEY.each do |key, value|
-    Location.create(
-     name: "#{key}",
-     key: "#{value}"
-    )
- end
 icon_day = [
     "sunny", "mostly_sunny", "partly_sunny", "intermittent_clouds", "hazy_sunshine",
     "mostly_cloudy", "cloudy", "dreary", "fog", "showers", "mostly_cloudy_w:showers",
@@ -89,7 +83,6 @@ h = 1;
         max: rand(60..110),
         icon_day: "#{icon_day[rand(0..27)]}",
         icon_night: "#{icon_night[rand(0..26)]}",
-        location_id: 1,
         story_id: h
     )
 

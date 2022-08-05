@@ -12,7 +12,7 @@ class WeathersController < ApplicationController
     private
 
     def weather_params
-        params.require(:weather).permit(:min, :max, :icon_day, :icon_night, :location_id, :story_id)
+        params.require(:weather).permit(:min, :max, :icon_day, :icon_night, :story_id)
     end
     
 end
