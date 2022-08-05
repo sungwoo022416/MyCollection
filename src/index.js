@@ -521,7 +521,7 @@ function moodAppend(moodArray, storyObj){
     if(Array.isArray(moodArray)){
         moodArray.forEach(mood => {
             if(mood.story_id == storyObj.id){
-                moodContent.textContent = `One-liner: ${mood.onee_liner}`;
+                moodContent.textContent = `One-liner: ${mood.one_liner}`;
                 moodState.textContent = `${mood.feeling}`;
             }})
     }else{
