@@ -39,7 +39,6 @@ const paperForm = document.querySelector(".paper-form");
 let cityFlag = 0;
 let moodFlag = 0;
 let dateFlag = 0;
-let diaryFlag = 0;
 
 helloPage()
 
@@ -47,6 +46,7 @@ function helloPage(){
     fetch(storiesUrl)
     .then(res => res.json())
     .then(storyArray => {
+            homePage.innerHTML ="";
             activateNavBar(storyArray);
 
             storyArray.forEach(story => {
@@ -77,7 +77,7 @@ function activateNavBar(storyArray){
         }
         else if(prefixExtractor.includes("diar")){
             pageArray[1].style.display = "block";
-            (diaryFlag != 1)? respondToCreate(storyArray): false;
+            respondToCreate(storyArray);
         }
         else if(prefixExtractor.includes("mood")){
             pageArray[2].style.display = "block";
@@ -196,7 +196,7 @@ function lengthCompare( a, b ) {
     return 0;
 } 
 
-function dateCompare( a, b ) {
+function yearCompare( a, b ) {
     if ( a.year < b.year){
       return -1;
     }
@@ -207,7 +207,7 @@ function dateCompare( a, b ) {
 } 
 
 function displayDateFilter(storyArray){
-    let sortedDates = storyArray.sort(dateCompare);
+    let sortedDates = storyArray.sort(yearCompare);
     let entireSize = sortedDates.length;
     let matchedObjects = [];
     let sanitizedArray = [];
@@ -272,43 +272,44 @@ function fetchForecast(){
 function respondToCreate(storyArray){
     let id = storyArray.length;
    storyForm.addEventListener("submit", event => {
+
         event.preventDefault();
         createStory(event, id);
    })
+    // diaryFlag = 1;
    id++;
 }
 
 function createStory(event, id){
-
     const city = event.target.city.value;
-    const month = event.target.month.value;
-    const day = event.target.day.value;
-    const year = event.target.year.value;
+    const date = event.target.date.value;
+    const year = event.target.date.value.slice(0,4);
     const image = event.target.image.value;
     const content = event.target.content.value;
-    const min = event.target["min-temperature"].value;
-    const max = event.target["max-temperature"].value;
+
+    const temperature = event.target[4].value;
+    const task = event.target.task.value;
     const feeling = event.target.feeling.value;
     const one_liner = event.target["one-liner"].value;
 
-    const task = event.target[10].value;
+    let tempInt = parseInt(temperature);
 
-    let today = new Date().toLocaleDateString();
-   
+    let iconArray= ["snow", "snow", "snow", "windy", "windy", 
+    "mostly_cloudy","mostly_cloudy", "intermittent_clouds_day","sunny", "sunny", "hot"];
+    
+    let icon = iconArray[`${tempInt/10}`];
+
     const createNewStory = {
         city,
-        month,
-        day,
+        date,
         year,
         image,
         content,
     }
 
     const createNewWeather = {
-        min,
-        max,
-        icon_day: "sunny",
-        icon_night: "foggy",
+        temperature,
+        icon,
         story_id: id
     }
 
@@ -325,6 +326,7 @@ function createStory(event, id){
     }
 
     let = objArray = [createNewStory,createNewWeather, createNewMood, createNewTask];
+
     configNewStory(objArray);
 }
 
@@ -362,6 +364,7 @@ function configNewStory(objArray){
             body: JSON.stringify(objArray[3])
         }
         let configArray = [configStory, configWeather, configMood, configTask];
+        
         fetchingNewDiary(configArray);
 }
 
@@ -372,18 +375,19 @@ function fetchingNewDiary(configArray){
        fetch(weatherUrl, configArray[1])
        .then(res => res.json())
        .then(weatherObj => {
-            fetch(moodUrl, configArray[2])
+            fetch(moodUrl, configArray[2]) //extra-challenge 
             .then(res => res.json())
             .then(moodObj => {
                 fetch(toDoListUrl, configArray[3])
                 .then(res => res.json())
                 .then(toDoObj => {
-                    renderDiary(storyObj, toDoObj, weatherObj, moodObj);
+                    helloPage();
+                    pageArray[1].style.display = "none";
+                    pageArray[5].style.display = "grid";
                 })
             })
        })
     })
-    
 }
 
 function renderStory(storyObj){
@@ -437,13 +441,9 @@ function fetchingData(storyObj) {
 function renderDiary(storyObj,listArray,weatherArray,moodArray) {
     pageIteration();
     indivPage.style.display = "grid";
-
-    if(storyObj.image === 'undefined'){
-        indivPage.style.backgroundImage = "url(https://www9.lunapic.com/editor/working/165966882843248960?988882853)";
-    }else{
-        let storyImg = storyObj.image;
-        indivPage.style.backgroundImage = `url(${storyImg})`;
-    }
+    
+    let storyImg = storyObj.image;
+    indivPage.style.backgroundImage = `url(${storyImg})`;
 
     indivPage.dataset.id = storyObj.id;
 
@@ -451,7 +451,7 @@ function renderDiary(storyObj,listArray,weatherArray,moodArray) {
         cityNode.textContent = storyObj.city;
 
     let dateNode = indivPage.querySelector(".date-display");
-        dateNode.textContent = `${storyObj.month}-${storyObj.day}-${storyObj.year}`;
+        dateNode.textContent = `${storyObj.date}`;
 
     storyChange(storyObj,listArray,weatherArray,moodArray); //editing the story
 
@@ -472,6 +472,7 @@ function renderDiary(storyObj,listArray,weatherArray,moodArray) {
     })
 
     moodAppend(moodArray, storyObj);
+
 }
 
 function storyChange(storyObj, listArray, weatherArray, moodArray){
@@ -511,16 +512,12 @@ function weatherAppend(weatherArray, storyObj){
     if(Array.isArray(weatherArray)){
         weatherArray.forEach(weather => {
     if(weather.story_id == storyObj.id){
-        temperature.innerHTML = `min: ${weather.min} F <br>
-        max: ${weather.max} F <br>
-        weather: ${weather.icon_day}`;
-        weatherIcon.src= `src/image/${weather.icon_day}.png`;
+        temperature.textContent = `${weather.temperature} F`
+        weatherIcon.src= `src/image/${weather.icon}.png`;
     }})}
     else{
-        temperature.innerHTML = `min: ${weather.min} F <br>
-        max: ${weather.max} F <br>
-        weather: ${weather.icon_day}`;
-        weatherIcon.src= `src/image/${weather.icon_day}.png`;
+        temperature.textContent = `${weatherArray.temperature} F`
+        weatherIcon.src= `src/image/${weatherArray.icon}.png`;
     }
 
     weatherDiv.append(temperature, weatherIcon, weather);
@@ -538,8 +535,8 @@ function moodAppend(moodArray, storyObj){
                 moodState.textContent = `${mood.feeling}`;
             }})
     }else{
-        moodContent.textContent = `One-liner: ${mood.one_liner}`;
-        moodState.textContent = `${mood.feeling}`;
+        moodContent.textContent = `One-liner: ${moodArray.one_liner}`;
+        moodState.textContent = `${moodArray.feeling}`;
     }
 
     moodDiv.append(moodState, moodContent, mood);
@@ -610,8 +607,8 @@ function renderToDo(storyObj, listArray) {
         let ul = document.createElement("ul");
         let doList = document.createElement("div");
         doList.classList.add("task-list");
-        doList.dataset.id = list.id;
-        doList.textContent = `${list.task}`;
+        doList.dataset.id = listArray.id;
+        doList.textContent = `${listArray.task}`;
 
         let deleteBtn = document.createElement("button");
         deleteBtn.classList.add("deleteBtn");

@@ -44,27 +44,59 @@
       <form class="story-form">
           <div class="story-div">
             <input type="text" name="city" value="" placeholder="City Name..." class="input-text"required>
-            <input type="text" name="month" value="" placeholder="Month..." class="input-text">
-            <input type="text" name="day" value="" placeholder="Day..." class="input-text">
-            <input type="text" name="year" value="" placeholder="Year..." class="input-text">
+            <input type="date" name="date" value="2022-08-05" min="2022-01-01" max="2022-12-31">
             <input type="url" name="image" value="" placeholder="Image..." class="input-text"required>
             <textarea type="text" name="content" value="" placeholder="Write Your Story..." class="paper-div"></textarea>
             </div>
           <div class="weather-div">
-              <input type="text" name="min-temperature" value="" placeholder="minimum-temperature..." class="input-text">
-              <input type="text" name="max-temperature" value="" placeholder="max-temperature..." class="input-text">
-          </div>
+            <p>Put how you felt about the day (don't need to be accurate):</p>
 
+            <input type="range" list="tickmarks">
+              <datalist id="tickmarks" name="temperature">
+              <option value="0" label="0%"></option>
+              <option value="10"></option>
+              <option value="20"></option>
+              <option value="30"></option>
+              <option value="40"></option>
+              <option value="50" label="50%"></option>
+              <option value="60"></option>
+              <option value="70"></option>
+              <option value="80"></option>
+              <option value="90"></option>
+              <option value="100" label="100%"></option>
+              </datalist>
+              
           <div class="mood-div">
-              <input type="text" name="feeling" value="" placeholder="feeling..." class="input-text">
-              <input type="text" name="one-liner" value="" placeholder="one-liner..." class="input-text"> 
+            <fieldset>
+              <legend>Select a feeling for the day:</legend>
+              <div>
+                <input type="radio" id="excited" name="feeling" value="excited" checked>
+                <label for="excited">Excited</label>
+              </div>
+          
+              <div>
+                <input type="radio" id="humbled" name="feeling" value="humbled">
+                <label for="humbled">Humbled</label>
+              </div>
+          
+              <div>
+                <input type="radio"id="fraustrated" name="feeling" value="fraustrated">
+                <label for="fraustrated">Fraustrated</label>
+              </div>
+              <div>
+                <input type="radio" id="sick" name="feeling" value="sick">
+                <label for="sick">Sick</label>
+              </div>
+          </fieldset>
+              <input type="text" name="one-liner" value="" placeholder="one-line summary..." class="input-text" required> 
           </div>
 
           <div ckass="to-do-div">
-            <input type="text" name="task" value="" placeholder="task..." class="input-text">
+            <input type="text" name="task" value="" placeholder="things I did..." class="input-text">
           </div>
      
           <input type="submit" name="submit" value="Create Story" class="submit">
+          <input type="reset" value="Clean">
         </div>
       </form>
     </div>
@@ -109,7 +141,7 @@
         <div class="mood-div">
           <strong class="mood-state"></strong>
           <em class="mood-content"></em>
-          <span class="mood"></span>
+          <span class="mood">Mood</span>
         </div>
         <div class="to-do-div">
           <div class="new-task">
@@ -118,7 +150,7 @@
             <input type="submit" name="submit" value=" " class="submit">
             </form>
           </div>
-          <span class="to-do">To-Do List</span>
+          <span class="to-do">Things I Did</span>
         </div>
     </div>
   </body>
