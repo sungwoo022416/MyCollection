@@ -7,6 +7,8 @@
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300&family=Edu+VIC+WA+NT+Beginner&display=swap');
         @import url('https://fonts.googleapis.com/css?family=DM+Sans:400,500,700&display=swap');
         @import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&display=swap");
+        @import url("https://fonts.googleapis.com/css?family=Lato:200,300,400,400i,700");
+        @import url("https://fonts.googleapis.com/css?family=Merriweather:200,400,400i,700");
         </style>
     <link rel="stylesheet" href="diary-header.css">
     <link rel="stylesheet" href="diary-collection.css">
@@ -40,14 +42,16 @@
         </div>
     </div>
 
-    <div class="new-page">
-      <form class="story-form">
-          <div class="story-div">
+      <div class="new-page">
+        <form class="story-form">
+          <h2>New Story</h2>
+          <div class="city-div">
             <input type="text" name="city" value="" placeholder="City Name..." class="input-text"required>
             <input type="date" name="date" value="2022-08-05" min="2022-01-01" max="2022-12-31">
+          </div>
+          <div class="story-div">
             <input type="url" name="image" value="" placeholder="Image..." class="input-text"required>
-            <textarea type="text" name="content" value="" placeholder="Write Your Story..." class="paper-div"></textarea>
-            </div>
+          </div>
           <div class="weather-div">
             <p>Put how you felt about the day (don't need to be accurate):</p>
 
@@ -65,7 +69,7 @@
               <option value="90"></option>
               <option value="100" label="100%"></option>
               </datalist>
-              
+          </div>
           <div class="mood-div">
             <fieldset>
               <legend>Select a feeling for the day:</legend>
@@ -73,7 +77,7 @@
                 <input type="radio" id="excited" name="feeling" value="excited" checked>
                 <label for="excited">Excited</label>
               </div>
-          
+        
               <div>
                 <input type="radio" id="humbled" name="feeling" value="humbled">
                 <label for="humbled">Humbled</label>
@@ -91,15 +95,15 @@
               <input type="text" name="one-liner" value="" placeholder="one-line summary..." class="input-text" required> 
           </div>
 
-          <div ckass="to-do-div">
+          <div class="to-do">
             <input type="text" name="task" value="" placeholder="things I did..." class="input-text">
+            <textarea type="text" name="content" value="" placeholder="Write Your Story..." class="paper-div"></textarea>
           </div>
      
           <input type="submit" name="submit" value="Create Story" class="submit">
-          <input type="reset" value="Clean">
-        </div>
-      </form>
-    </div>
+          <input class="reset" type="reset" value="Clean">
+        </form>
+      </div>
     
     <div class="diary-collection"></div>
 

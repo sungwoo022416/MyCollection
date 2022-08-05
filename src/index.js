@@ -46,13 +46,15 @@ function helloPage(){
     fetch(storiesUrl)
     .then(res => res.json())
     .then(storyArray => {
+        homePage.innerHTML="";
+        activateNavBar(storyArray);
 
-            homePage.innerHTML="";
-            activateNavBar(storyArray);
-
+        fetch(moodUrl)
+        .then(res => res.json())
+        .then(moodArray=> {
             storyArray.forEach(story => {
                 pageIteration();
-                renderStory(story);
+                renderStory(story, moodArray)})
             })
      })
 }
@@ -79,7 +81,7 @@ function activateNavBar(storyArray){
 
         }
         else if(prefixExtractor.includes("diar")){
-            pageArray[1].style.display = "block";
+            pageArray[1].style.display = "flex";
             respondToCreate(storyArray);
         }
         else if(prefixExtractor.includes("mood")){
@@ -293,7 +295,7 @@ function createStory(event, id){
     const temperature = event.target[4].value;
     const task = event.target.task.value;
     const feeling = event.target.feeling.value;
-    const one_liner = event.target["one-liner"].value;
+    const oneLiner = event.target["one-liner"].value;
 
     let tempInt = parseInt(temperature);
 
@@ -318,7 +320,7 @@ function createStory(event, id){
 
     const createNewMood = {
         feeling,
-        one_liner,
+        one_liner: oneLiner,
         story_id: id
     }
 
@@ -391,14 +393,14 @@ function fetchingNewDiary(configArray){
     })
 }
 
-function renderStory(storyObj){
+function renderStory(storyObj, moodArray){
     homePage.style.display = "block";
 
-    homePage.append(returnStoryDiv(storyObj));
+    homePage.append(returnStoryDiv(storyObj, moodArray));
 
 }
 
-function returnStoryDiv(storyObj) {
+function returnStoryDiv(storyObj, moodArray) {
     let divNode = document.createElement("div");
     divNode.classList.add("card");
     divNode.dataset.id = storyObj.id;
@@ -409,9 +411,14 @@ function returnStoryDiv(storyObj) {
 
     let cityNode = document.createElement("h2");
     cityNode.textContent = storyObj.city;
-    debugger;
+   
     let moraleNode = document.createElement("p");
-    moraleNode.textContent = `One-liner: ${story.content}`;
+
+    moodArray.forEach(mood =>{
+        if(mood.story_id == storyObj.id){
+            moraleNode.textContent = `One-liner: ${mood.one_liner}`;
+        }
+    })
 
     divNode.append(cityNode,moraleNode);
 
@@ -536,7 +543,7 @@ function moodAppend(moodArray, storyObj){
     if(Array.isArray(moodArray)){
         moodArray.forEach(mood => {
             if(mood.story_id == storyObj.id){
-                moodContent.textContent = `One-liner: ${mood.one_liner}`;
+                moodContent.textContent = `One-liner: ${mood.onee_liner}`;
                 moodState.textContent = `${mood.feeling}`;
             }})
     }else{

@@ -6,24 +6,24 @@ html {
     scroll-behavior: smooth;
 }
 
-button {
+.reset {
     position: relative;
     background-color: #deb887;
-    border: none;
     border-radius: 5px;
-    height: 3rem;
+    height: 2rem;
     width: max-content;
-    color: #D2691E;
+    color: whitesmoke;
     font-size: 18px;
     justify-self: center;
+    font-family: monospace;
+    margin: 3px;
 }
 
-button:hover {
+.reset:hover {
     background-color: whitesmoke;
     border: #deb887 solid 1px;
     color: #deb887;
 }
-
 .submit {
     position: relative;
     background-color: #deb887;
@@ -46,7 +46,7 @@ button:hover {
 .input-text {
     border-radius: 5px;
     height: 2rem;
-    width: 60%;
+    width: 40%;
     font-size: 18px;
     font-family: 'DM-sans', sans-serif;
     margin: 3px;
